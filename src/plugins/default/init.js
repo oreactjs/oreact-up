@@ -10,8 +10,8 @@ sh.config.silent = true;
 function findDestination(api) {
   const base = process.cwd();
 
-  const inMeteorApp = fs.existsSync(api.resolvePath(base, '.meteor/release'));
-  const parentMeteorApp = fs.existsSync(api.resolvePath(base, '../.meteor/release'));
+  const inMeteorApp = fs.existsSync(api.resolvePath(base, 'razzle.config.js'));
+  const parentMeteorApp = fs.existsSync(api.resolvePath(base, '../razzle.config.js'));
   const parentChildren = fs.readdirSync(api.resolvePath(base, '../'));
   let siblingMeteorApp = false;
   let otherChild = '';
@@ -19,7 +19,7 @@ function findDestination(api) {
   if (parentChildren.length === 2) {
     otherChild = parentChildren
       .filter(child => child !== path.basename(base))[0];
-    if (fs.existsSync(api.resolvePath('..', otherChild, '.meteor/release'))) {
+    if (fs.existsSync(api.resolvePath('..', otherChild, 'razzle.config.js'))) {
       siblingMeteorApp = true;
     }
   }

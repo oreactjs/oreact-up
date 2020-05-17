@@ -14,7 +14,12 @@ import uuid from 'uuid';
 const log = debug('mup:module:meteor');
 
 function tmpBuildPath(appPath, api) {
-  const rand = random.create(appPath);
+  return api.resolvePath(
+      appPath,
+      `build`
+  );
+
+  /*const rand = random.create(appPath);
   const uuidNumbers = [];
   for (let i = 0; i < 16; i++) {
     uuidNumbers.push(rand(255));
@@ -23,7 +28,20 @@ function tmpBuildPath(appPath, api) {
   return api.resolvePath(
     os.tmpdir(),
     `mup-meteor-${uuid.v4({ random: uuidNumbers })}`
+  );*/
+}
+
+function tmpDirPath(appPath, api) {
+  const tmpDir = api.resolvePath(
+      appPath,
+      `.tmp`
   );
+
+  if (!fs.existsSync(tmpDir)) {
+    fs.mkdirSync(tmpDir);
+  }
+
+  return tmpDir;
 }
 
 export function logs(api) {
@@ -103,6 +121,9 @@ function getBuildOptions(api) {
   buildOptions.buildLocation =
     buildOptions.buildLocation || tmpBuildPath(appPath, api);
 
+  buildOptions.tmpDirLocation =
+      buildOptions.tmpDirLocation || tmpDirPath(appPath, api);
+
   return buildOptions;
 }
 
@@ -157,10 +178,10 @@ export async function push(api) {
 
   const buildOptions = getBuildOptions(api);
 
-  const bundlePath = api.resolvePath(buildOptions.buildLocation, 'bundle.tar.gz');
+  const bundlePath = api.resolvePath(buildOptions.tmpDirLocation, 'bundle.tar.gz');
 
   if (shouldRebuild(api)) {
-    await promisify(archiveApp)(buildOptions.buildLocation, api);
+    await promisify(archiveApp)(buildOptions, api);
   }
 
   const list = nodemiral.taskList('Pushing Meteor App');

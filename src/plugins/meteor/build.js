@@ -23,9 +23,9 @@ export default function buildApp(appPath, buildOptions, verbose, api) {
   try {
     // checks for release file since there also is a
     // .meteor folder in the user's home
-    fs.statSync(api.resolvePath(appPath, '.meteor/release'));
+    fs.statSync(api.resolvePath(appPath, 'razzle.config.js'));
   } catch (e) {
-    console.log(`${api.resolvePath(appPath)} is not a meteor app`);
+    console.log(`${api.resolvePath(appPath)} is not a razzle app`);
     process.exit(1);
   }
 
@@ -51,13 +51,13 @@ export default function buildApp(appPath, buildOptions, verbose, api) {
 }
 
 function buildMeteorApp(appPath, buildOptions, verbose, callback) {
-  let executable = buildOptions.executable || 'meteor';
+  let executable = buildOptions.executable || 'oreact';
   let args = [
     'build',
-    '--directory',
-    buildOptions.buildLocation,
-    '--architecture',
-    'os.linux.x86_64'
+    //'--directory',
+    //buildOptions.buildLocation,
+    //'--architecture',
+    //'os.linux.x86_64'
   ];
 
   if (buildOptions.debug) {
@@ -120,19 +120,20 @@ function buildMeteorApp(appPath, buildOptions, verbose, callback) {
   meteor.on('close', callback);
 }
 
-export function archiveApp(buildLocation, api, cb) {
-  const bundlePath = api.resolvePath(buildLocation, 'bundle.tar.gz');
+export function archiveApp(buildOptions, api, cb) {
+
+  const bundlePath = api.resolvePath(buildOptions.tmpDirLocation, 'bundle.tar.gz');
 
   log('starting archive');
   tar.c({
     file: bundlePath,
     onwarn(message, data) { console.log(message, data); },
-    cwd: buildLocation,
+    cwd: api.resolvePath(buildOptions.buildLocation, '../'),
     portable: true,
     gzip: {
       level: 9
     }
-  }, ['bundle'], err => {
+  }, ['build'], err => {
     log('archive finished');
 
     if (err) {
