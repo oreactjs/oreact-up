@@ -19,7 +19,7 @@ module.exports = {
     },
 
     docker: {
-      image: 'abernix/meteord:base'
+      image: 'oreact/app:base'
     },
 
     deployCheckWaitTime: 300

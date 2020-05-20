@@ -31,7 +31,7 @@ export function addStartAppTask(list, api) {
 }
 
 export function prepareBundleSupported(dockerConfig) {
-  const supportedImages = ['abernix/meteord', 'zodern/meteor'];
+  const supportedImages = ['oreact/app'];
 
   if ('prepareBundle' in dockerConfig) {
     return dockerConfig.prepareBundle;

@@ -19,13 +19,37 @@ export default function buildApp(appPath, buildOptions, verbose, api) {
     process.exit(1);
   }
 
-  // Make sure it is a Meteor app
+  // Make sure if package.json exists
+  try {
+    fs.statSync(api.resolvePath(appPath,'package.json'));
+  } catch (e) {
+    if (e.code === 'ENOENT') {
+      console.log(`${api.resolvePath(appPath,'package.json')} does not exist`);
+    } else {
+      console.log(e);
+    }
+    process.exit(1);
+  }
+
+  // Make sure if .env.production exists
+  try {
+    fs.statSync(api.resolvePath(appPath,'.env.production'));
+  } catch (e) {
+    if (e.code === 'ENOENT') {
+      console.log(`${api.resolvePath(appPath,'.env.production')} does not exist`);
+    } else {
+      console.log(e);
+    }
+    process.exit(1);
+  }
+
+  // Make sure it is a Oreact app
   try {
     // checks for release file since there also is a
     // .meteor folder in the user's home
     fs.statSync(api.resolvePath(appPath, 'razzle.config.js'));
   } catch (e) {
-    console.log(`${api.resolvePath(appPath)} is not a razzle app`);
+    console.log(`${api.resolvePath(appPath)} is not a oreact app`);
     process.exit(1);
   }
 
@@ -53,11 +77,7 @@ export default function buildApp(appPath, buildOptions, verbose, api) {
 function buildMeteorApp(appPath, buildOptions, verbose, callback) {
   let executable = buildOptions.executable || 'oreact';
   let args = [
-    'build',
-    //'--directory',
-    //buildOptions.buildLocation,
-    //'--architecture',
-    //'os.linux.x86_64'
+    'build'
   ];
 
   if (buildOptions.debug) {
@@ -127,13 +147,14 @@ export function archiveApp(buildOptions, api, cb) {
   log('starting archive');
   tar.c({
     file: bundlePath,
+    prefix: 'bundle',
     onwarn(message, data) { console.log(message, data); },
     cwd: api.resolvePath(buildOptions.buildLocation, '../'),
     portable: true,
     gzip: {
       level: 9
     }
-  }, ['build'], err => {
+  }, ['build', 'package.json', '.env.production'], err => {
     log('archive finished');
 
     if (err) {

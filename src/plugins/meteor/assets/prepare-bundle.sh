@@ -23,11 +23,11 @@ sudo docker stop $APPNAME >/dev/null 2>&1 || true
 
 cd $APP_DIR/tmp
 
-sudo rm -rf build
+sudo rm -rf bundle
 sudo tar -xzf bundle.tar.gz
 sudo chmod 777 ./ -R
 echo "Finished Extracting"
-cd build
+cd bundle
 
 echo "Creating Dockerfile"
 sudo cat <<EOT > Dockerfile
@@ -40,8 +40,6 @@ ENV <%- key %>=<%- env[key] %>
 <%-  buildInstructions[instruction] %>
 <% } %>
 COPY ./ /built_app
-#RUN cd  /built_app/programs/server && \
-#    npm install --unsafe-perm
 EOT
 
 echo "Finished creating Dockerfile"

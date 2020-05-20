@@ -249,7 +249,7 @@ export function envconfig(api) {
   }
 
   // If imagePort is not set, go with port 80 which was the traditional
-  // port used by kadirahq/meteord and meteorhacks/meteord
+  // port used by oreact/app
   config.docker.imagePort = config.docker.imagePort || 80;
 
   if (config.ssl) {

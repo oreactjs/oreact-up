@@ -25,7 +25,7 @@ module.exports = {
       driver: 'syslog'
     },
     docker: {
-      image: 'abernix/meteord:base'
+      image: 'oreact/app:base'
     },
     deployCheckWaitTime: 300
   },

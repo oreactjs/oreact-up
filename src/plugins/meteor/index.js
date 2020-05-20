@@ -26,7 +26,7 @@ export function prepareConfig(config) {
   }
 
   config.app.docker = defaultsDeep(config.app.docker, {
-    image: config.app.dockerImage || 'kadirahq/meteord',
+    image: config.app.dockerImage || 'oreact/app:base',
     stopAppDuringPrepareBundle: true
   });
 

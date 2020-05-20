@@ -96,11 +96,8 @@ export default function init(api) {
     console.log('  Open mup.js and edit the config to meet your needs.');
     console.log('  Required changes have been marked with a TODO comment.');
     console.log('');
-    console.log('  Available options can be found in the docs at');
-    console.log('    https://github.com/zodern/meteor-up');
-    console.log('');
     console.log('  Then, run the command:');
-    console.log('    mup setup');
+    console.log('  mup setup');
   } else {
     console.log('Skipping creation of mup.js');
     console.log(`mup.js already exists at ${configDest}`);
