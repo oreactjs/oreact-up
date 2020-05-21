@@ -33,26 +33,13 @@ const schema = joi.object().keys({
     stopAppDuringPrepareBundle: joi.bool()
   }),
   buildOptions: joi.object().keys({
-    serverOnly: joi.bool(),
-    debug: joi.bool(),
-    cleanAfterBuild: joi.bool(),
     buildLocation: joi.string(),
-    mobileSettings: joi.object(),
-    server: joi.string().uri(),
-    allowIncompatibleUpdates: joi.boolean(),
     executable: joi.string()
   }),
   env: joi
     .object()
     .keys({
-      ROOT_URL: joi
-        .string()
-        .regex(
-          new RegExp('^(http|https)://', 'i'),
-          'valid url with "http://" or "https://"'
-        )
-        .required(),
-      MONGO_URL: joi.string()
+      PORT: joi.number().required()
     })
     .pattern(/[\s\S]*/, [joi.string(), joi.number(), joi.bool()]),
   log: joi.object().keys({

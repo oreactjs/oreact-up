@@ -80,44 +80,18 @@ function buildMeteorApp(appPath, buildOptions, verbose, callback) {
     'build'
   ];
 
-  if (buildOptions.debug) {
-    args.push('--debug');
-  }
-
-  if (buildOptions.mobileSettings) {
-    args.push('--mobile-settings');
-    args.push(JSON.stringify(buildOptions.mobileSettings));
-  }
-
-  if (buildOptions.serverOnly) {
-    args.push('--server-only');
-  } else if (!buildOptions.mobileSettings) {
-    args.push('--mobile-settings');
-    args.push(`${appPath}/settings.json`);
-  }
-
-  if (buildOptions.server) {
-    args.push('--server');
-    args.push(buildOptions.server);
-  }
-
-  if (buildOptions.allowIncompatibleUpdate) {
-    args.push('--allow-incompatible-update');
-  }
-
   const isWin = /^win/.test(process.platform);
   if (isWin) {
     // Sometimes cmd.exe not available in the path
     // See: http://goo.gl/ADmzoD
     executable = process.env.comspec || 'cmd.exe';
-    args = ['/c', 'meteor'].concat(args);
+    args = ['/c', 'oreact'].concat(args);
   }
 
   const options = {
     cwd: appPath,
     env: {
-      ...process.env,
-      METEOR_HEADLESS: 1
+      ...process.env
     },
     stdio: verbose ? 'inherit' : 'pipe'
   };
@@ -125,19 +99,19 @@ function buildMeteorApp(appPath, buildOptions, verbose, callback) {
   log(`Build Path: ${appPath}`);
   log(`Build Command:  ${executable} ${args.join(' ')}`);
 
-  const meteor = spawn(executable, args, options);
+  const oreact = spawn(executable, args, options);
 
   if (!verbose) {
-    meteor.stdout.pipe(process.stdout, { end: false });
-    meteor.stderr.pipe(process.stderr, { end: false });
+    oreact.stdout.pipe(process.stdout, { end: false });
+    oreact.stderr.pipe(process.stderr, { end: false });
   }
 
-  meteor.on('error', e => {
+  oreact.on('error', e => {
     console.log(options);
     console.log(e);
-    console.log('This error usually happens when meteor is not installed.');
+    console.log('This error usually happens when oreact-cli is not installed.');
   });
-  meteor.on('close', callback);
+  oreact.on('close', callback);
 }
 
 export function archiveApp(buildOptions, api, cb) {

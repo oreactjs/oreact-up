@@ -82,20 +82,6 @@ export function scrubConfig(config, utils) {
       switch (path) {
         case 'name':
           return this.update('my-app');
-        case 'buildOptions.server':
-          return this.update(utils.scrubUrl(this.node));
-
-        case 'env.ROOT_URL':
-          return this.update(utils.scrubUrl(this.node));
-
-        case 'env.MONGO_URL':
-          if (config.mongo) {
-            const url = this.node.split('/');
-            url.pop();
-            url.push('my-app');
-
-            return this.update(url.join('/'));
-          }
 
           return this.update(utils.scrubUrl(this.node));
 
