@@ -54,7 +54,7 @@ export default function(
   );
   details = combineErrorDetails(
     details,
-    externalMongoUrl(origionalConfig.app || origionalConfig.meteor)
+    externalMongoUrl(origionalConfig.app || origionalConfig.oreact)
   );
 
   return addLocation(details, 'mongo');

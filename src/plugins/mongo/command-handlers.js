@@ -29,17 +29,17 @@ export function setup(api) {
   }
 
   const mongoSessions = api.getSessions(['mongo']);
-  const meteorSessions = api.getSessions(['app']);
+  const oreactSessions = api.getSessions(['app']);
 
-  if (meteorSessions.length !== 1) {
+  if (oreactSessions.length !== 1) {
     console.log(
-      'To use mup built-in mongodb setup, you should have only one meteor app server. To have more app servers, use an external mongodb setup'
+      'To use mup built-in mongodb setup, you should have only one oreact app server. To have more app servers, use an external mongodb setup'
     );
 
     return;
-  } else if (mongoSessions[0]._host !== meteorSessions[0]._host) {
+  } else if (mongoSessions[0]._host !== oreactSessions[0]._host) {
     console.log(
-      'To use mup built-in mongodb setup, you should have both meteor app and mongodb on the same server'
+      'To use mup built-in mongodb setup, you should have both oreact app and mongodb on the same server'
     );
 
     return;
@@ -65,12 +65,12 @@ export function start(api) {
   log('exec => mup mongo start');
 
   const mongoSessions = api.getSessions(['mongo']);
-  const meteorSessions = api.getSessions(['app']);
+  const oreactSessions = api.getSessions(['app']);
   const config = api.getConfig().mongo;
 
   if (
-    meteorSessions.length !== 1 ||
-    mongoSessions[0]._host !== meteorSessions[0]._host
+    oreactSessions.length !== 1 ||
+    mongoSessions[0]._host !== oreactSessions[0]._host
   ) {
     log('Skipping mongodb start. Incompatible config');
 

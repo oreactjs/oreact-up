@@ -12,12 +12,12 @@ chai.use(chaiString);
 sh.config.silent = false;
 const servers = require('../../../../tests/fixtures/servers');
 
-describe('module - meteor', function() {
+describe('module - oreact', function() {
   this.timeout(600000);
 
   describe('setup', () => {
-    it('should setup environment on "meteor" vm', async () => {
-      const serverInfo = servers.mymeteor;
+    it('should setup environment on "oreact" vm', async () => {
+      const serverInfo = servers.myoreact;
 
       await runSSHCommand(serverInfo, 'rm -rf /opt/myapp || :');
       await runSSHCommand(
@@ -27,7 +27,7 @@ describe('module - meteor', function() {
 
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
-      const out = sh.exec('mup meteor setup');
+      const out = sh.exec('mup oreact setup');
       assert.equal(out.code, 0);
 
       const num = countOccurences('Setup Environment: SUCCESS', out.output);
@@ -41,19 +41,19 @@ describe('module - meteor', function() {
   });
 
   describe('push', () => {
-    it('should push meteor app bundle to "meteor" vm', async () => {
-      const serverInfo = servers.mymeteor;
+    it('should push oreact app bundle to "oreact" vm', async () => {
+      const serverInfo = servers.myoreact;
 
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
       sh.exec('mup docker setup');
-      sh.exec('mup meteor setup');
+      sh.exec('mup oreact setup');
 
-      const out = sh.exec('mup meteor push --cached-build');
+      const out = sh.exec('mup oreact push --cached-build');
       assert.equal(out.code, 0);
 
       const num = countOccurences(
-        'Pushing Meteor App Bundle to the Server: SUCCESS',
+        'Pushing Oreact App Bundle to the Server: SUCCESS',
         out.output
       );
       assert.equal(num, 1);
@@ -67,13 +67,13 @@ describe('module - meteor', function() {
   });
 
   describe('envconfig', () => {
-    const serverInfo = servers.mymeteor;
-    it('should send the environment variables to "meteor" vm', async () => {
+    const serverInfo = servers.myoreact;
+    it('should send the environment variables to "oreact" vm', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
-      sh.exec('mup meteor setup');
+      sh.exec('mup oreact setup');
 
-      const out = sh.exec('mup meteor envconfig');
+      const out = sh.exec('mup oreact envconfig');
       assert.equal(out.code, 0);
 
       const num = countOccurences(
@@ -97,9 +97,9 @@ describe('module - meteor', function() {
     });
     it('should push server specific env variables', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-2'));
-      sh.exec('mup meteor setup');
+      sh.exec('mup oreact setup');
 
-      const out = sh.exec('mup meteor envconfig');
+      const out = sh.exec('mup oreact envconfig');
 
       expect(out.code).to.equal(0);
 
@@ -113,18 +113,18 @@ describe('module - meteor', function() {
   });
 
   describe('start', () => {
-    const serverInfo = servers.mymeteor;
+    const serverInfo = servers.myoreact;
 
-    it('should start meteor on "meteor" vm', async () => {
+    it('should start oreact on "oreact" vm', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
       sh.exec(
-        'mup setup && mup meteor push --cached-build && mup meteor envconfig'
+        'mup setup && mup oreact push --cached-build && mup oreact envconfig'
       );
-      const out = sh.exec('mup meteor start');
+      const out = sh.exec('mup oreact start');
       assert.equal(out.code, 0);
 
-      const num = countOccurences('Start Meteor: SUCCESS', out.output);
+      const num = countOccurences('Start Oreact: SUCCESS', out.output);
       assert.equal(num, 1);
 
       const sshOut = await runSSHCommand(
@@ -136,7 +136,7 @@ describe('module - meteor', function() {
   });
 
   describe('deploy', () => {
-    const serverInfo = servers.mymeteor;
+    const serverInfo = servers.myoreact;
 
     async function checkDeploy(out, appText) {
       assert.equal(out.code, 0);
@@ -147,11 +147,11 @@ describe('module - meteor', function() {
       );
       assert.equal(num, 1);
 
-      const num2 = countOccurences('Start Meteor: SUCCESS', out.output);
+      const num2 = countOccurences('Start Oreact: SUCCESS', out.output);
       assert.equal(num2, 1);
 
       const num3 = countOccurences(
-        'Pushing Meteor App Bundle to the Server: SUCCESS',
+        'Pushing Oreact App Bundle to the Server: SUCCESS',
         out.output
       );
       assert.equal(num3, 1);
@@ -164,44 +164,44 @@ describe('module - meteor', function() {
       expect(sshOut.output).to.have.entriesCount(appText, 1);
     }
 
-    it('should deploy meteor app on "meteor" vm', async () => {
+    it('should deploy oreact app on "oreact" vm', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
       sh.exec('mup setup');
-      const out = sh.exec('mup meteor deploy --cached-build');
+      const out = sh.exec('mup oreact deploy --cached-build');
 
       checkDeploy(out, '<title>helloapp-new</title>');
     });
 
-    it('should deploy app using Meteor 1.2', async () => {
+    it('should deploy app using Oreact 1.2', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
       sh.exec('mup setup --config mup.old.js');
-      const out = sh.exec('mup meteor deploy --cached-build --config mup.old.js');
+      const out = sh.exec('mup oreact deploy --cached-build --config mup.old.js');
       expect(out.code).to.equal(0);
       checkDeploy(out, '<title>helloapp</title>');
     });
   });
 
   describe('logs', () => {
-    it('should pull the logs from "meteor" vm', async () => {
+    it('should pull the logs from "oreact" vm', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
-      const out = sh.exec('mup meteor logs --tail 2');
+      const out = sh.exec('mup oreact logs --tail 2');
       assert.equal(out.code, 0);
     });
   });
 
   describe('stop', () => {
-    const serverInfo = servers.mymeteor;
-    it('should stop meteor app on "meteor" vm', async () => {
+    const serverInfo = servers.myoreact;
+    it('should stop oreact app on "oreact" vm', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
       sh.exec('mup setup && mup deploy --cached-build');
-      const out = sh.exec('mup meteor stop');
+      const out = sh.exec('mup oreact stop');
       assert.equal(out.code, 0);
 
-      const num = countOccurences('Stop Meteor: SUCCESS', out.output);
+      const num = countOccurences('Stop Oreact: SUCCESS', out.output);
       assert.equal(num, 1);
 
       const sshOut = await runSSHCommand(

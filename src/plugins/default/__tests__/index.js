@@ -17,8 +17,8 @@ describe('module - default', function() {
   this.timeout(900000);
 
   describe('deploy', () => {
-    it('should deploy meteor app on "meteor" vm', async () => {
-      const serverInfo = servers.mymeteor;
+    it('should deploy oreact app on "oreact" vm', async () => {
+      const serverInfo = servers.myoreact;
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
       sh.exec('mup setup');
 
@@ -37,7 +37,7 @@ describe('module - default', function() {
 
       expect(
         countOccurences(
-          'Pushing Meteor App Bundle to the Server: SUCCESS',
+          'Pushing oreact App Bundle to the Server: SUCCESS',
           out.output
         )
       ).to.be.equal(1);
@@ -47,7 +47,7 @@ describe('module - default', function() {
       expect(
         countOccurences('Sending Environment Variables: SUCCESS', out.output)
       ).to.be.equal(1);
-      expect(countOccurences('Start Meteor: SUCCESS', out.output)).to.be.equal(
+      expect(countOccurences('Start oreact: SUCCESS', out.output)).to.be.equal(
         1
       );
       expect(
@@ -79,7 +79,7 @@ describe('module - default', function() {
   });
 
   describe('logs', () => {
-    it('should pull the logs from meteor app', () => {
+    it('should pull the logs from oreact app', () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
       const out = sh.exec('mup logs --tail 2');
       expect(out.code).to.be.equal(0);
@@ -87,8 +87,8 @@ describe('module - default', function() {
   });
 
   describe('reconfig', () => {
-    it('should reconfig meteor app on "meteor" vm', async () => {
-      const serverInfo = servers.mymeteor;
+    it('should reconfig oreact app on "oreact" vm', async () => {
+      const serverInfo = servers.myoreact;
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
       sh.exec('mup setup  && mup deploy --cached-build');
 
@@ -98,7 +98,7 @@ describe('module - default', function() {
       expect(
         countOccurences('Sending Environment Variables: SUCCESS', out.output)
       ).to.be.equal(1);
-      expect(countOccurences('Start Meteor: SUCCESS', out.output)).to.be.equal(
+      expect(countOccurences('Start oreact: SUCCESS', out.output)).to.be.equal(
         1
       );
       expect(
@@ -111,16 +111,16 @@ describe('module - default', function() {
   });
 
   describe('restart', () => {
-    it('should restart meteor app on "meteor" vm', async () => {
-      const serverInfo = servers.mymeteor;
+    it('should restart oreact app on "oreact" vm', async () => {
+      const serverInfo = servers.myoreact;
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
       sh.exec('mup setup  && mup deploy --cached-build');
 
       const out = sh.exec('mup restart');
 
       expect(out.code).to.be.equal(0);
-      expect(out.output).to.have.entriesCount('Stop Meteor: SUCCESS', 1);
-      expect(out.output).to.have.entriesCount('Start Meteor: SUCCESS', 1);
+      expect(out.output).to.have.entriesCount('Stop oreact: SUCCESS', 1);
+      expect(out.output).to.have.entriesCount('Start oreact: SUCCESS', 1);
       expect(
         out.output
       ).to.have.entriesCount('Verifying Deployment: SUCCESS', 1);
@@ -131,8 +131,8 @@ describe('module - default', function() {
   });
 
   describe('setup', () => {
-    it('should setup "meteor" vm', async () => {
-      const serverInfo = servers.mymeteor;
+    it('should setup "oreact" vm', async () => {
+      const serverInfo = servers.myoreact;
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
       const out = sh.exec('mup setup');
@@ -154,15 +154,15 @@ describe('module - default', function() {
   });
 
   describe('start', () => {
-    it('should start meteor app on "meteor" vm', async () => {
-      const serverInfo = servers.mymeteor;
+    it('should start oreact app on "oreact" vm', async () => {
+      const serverInfo = servers.myoreact;
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
-      sh.exec('mup setup  && mup meteor push --cached-build && mup meteor envconfig');
+      sh.exec('mup setup  && mup oreact push --cached-build && mup oreact envconfig');
 
       const out = sh.exec('mup start');
 
       expect(out.code).to.be.equal(0);
-      expect(countOccurences('Start Meteor: SUCCESS', out.output)).to.be.equal(
+      expect(countOccurences('Start oreact: SUCCESS', out.output)).to.be.equal(
         1
       );
       expect(
@@ -175,15 +175,15 @@ describe('module - default', function() {
   });
 
   describe('stop', () => {
-    it('should stop meteor app on "meteor" vm', async () => {
-      const serverInfo = servers.mymeteor;
+    it('should stop oreact app on "oreact" vm', async () => {
+      const serverInfo = servers.myoreact;
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
       sh.exec('mup setup  && mup deploy --cached-build');
 
       const out = sh.exec('mup stop');
 
       expect(out.code).to.be.equal(0);
-      expect(countOccurences('Stop Meteor: SUCCESS', out.output)).to.be.equal(
+      expect(countOccurences('Stop oreact: SUCCESS', out.output)).to.be.equal(
         1
       );
       expect(
@@ -193,9 +193,9 @@ describe('module - default', function() {
   });
 
   describe('syslog', () => {
-    const serverInfo = servers.mymeteor;
+    const serverInfo = servers.myoreact;
 
-    it('should write meteor logs to syslog on "meteor" vm', async () => {
+    it('should write oreact logs to syslog on "oreact" vm', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-2'));
 
       sh.exec('mup setup && mup deploy --cached-build');
@@ -206,7 +206,7 @@ describe('module - default', function() {
       expect(out.code).to.be.equal(0);
 
       expect(
-        countOccurences('=> Starting meteor app on port:80', out.output)
+        countOccurences('=> Starting oreact app on port:80', out.output)
       ).gte(1);
     });
   });

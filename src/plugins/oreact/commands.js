@@ -1,12 +1,12 @@
 import * as commandHandlers from './command-handlers';
 
 export const setup = {
-  description: 'Prepare server to deploy meteor apps',
+  description: 'Prepare server to deploy oreact apps',
   handler: commandHandlers.setup
 };
 
 export const deploy = {
-  description: 'Deploy meteor apps',
+  description: 'Deploy oreact apps',
   builder(subYargs) {
     return subYargs.option('cached-build', {
       description: 'Use build from previous deploy',
@@ -17,7 +17,7 @@ export const deploy = {
 };
 
 export const logs = {
-  description: 'View meteor app\'s logs',
+  description: 'View oreact app\'s logs',
   builder(yargs) {
     return yargs
       .strict(false)
@@ -36,17 +36,17 @@ export const logs = {
 };
 
 export const start = {
-  description: 'Start meteor app',
+  description: 'Start oreact app',
   handler: commandHandlers.start
 };
 
 export const stop = {
-  description: 'Stop meteor app',
+  description: 'Stop oreact app',
   handler: commandHandlers.stop
 };
 
 export const restart = {
-  description: 'Restart meteor app',
+  description: 'Restart oreact app',
   handler: commandHandlers.restart
 };
 

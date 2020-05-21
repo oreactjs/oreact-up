@@ -133,5 +133,5 @@ export default function(
     );
   }
 
-  return addLocation(details, config.meteor ? 'meteor' : 'app');
+  return addLocation(details, config.oreact ? 'oreact' : 'app');
 }

@@ -58,8 +58,8 @@ describe('utils', () => {
 
   describe('countOccurences', () => {
     it('should return the correct count', () => {
-      const needle = 'Meteor';
-      const haystack = 'Production Quality Meteor Deployments. Meteor Up is a command line tool that allows you to deploy any Meteor app to your own server.';
+      const needle = 'Oreact';
+      const haystack = 'Production Quality Oreact Deployments. Oreact Up is a command line tool that allows you to deploy any Oreact app to your own server.';
       const count = utils.countOccurences(needle, haystack);
       assert(count === 3);
     });

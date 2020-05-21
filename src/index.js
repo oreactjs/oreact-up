@@ -80,7 +80,7 @@ let program = yargs
   .alias('version', 'V')
   .global('version', false)
   .option('settings', {
-    description: 'Path to Meteor settings file',
+    description: 'Path to Oreact settings file',
     requiresArg: true,
     string: true
   })

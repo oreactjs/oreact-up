@@ -12,7 +12,7 @@ describe('module - mongo', function() {
   this.timeout(600000);
 
   describe('logs', () => {
-    it('should pull logs from "meteor" vm', async () => {
+    it('should pull logs from "oreact" vm', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
       sh.exec('mup setup');

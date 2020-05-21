@@ -15,8 +15,8 @@ describe('module - proxy', function() {
   this.timeout(60000000);
 
   describe('setup', () => {
-    it('should setup proxy on "meteor" vm', async () => {
-      const serverInfo = servers.mymeteor;
+    it('should setup proxy on "oreact" vm', async () => {
+      const serverInfo = servers.myoreact;
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-3'));
       let out = sh.exec('mup setup');
 
@@ -45,7 +45,7 @@ describe('module - proxy', function() {
 
   describe('reconfig-shared', () => {
     it('it should update shared settings', async () => {
-      const serverInfo = servers.mymeteor;
+      const serverInfo = servers.myoreact;
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-3'));
       sh.exec('mup setup');
 

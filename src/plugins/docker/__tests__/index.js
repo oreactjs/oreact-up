@@ -33,7 +33,7 @@ describe('module - docker', function() {
       };
     }
 
-    it('should install docker on "meteor" vm', checkDocker('meteor'));
+    it('should install docker on "oreact" vm', checkDocker('oreact'));
     it('should install docker on "mongo" vm', checkDocker('mongo'));
     it('should install docker on "proxy" vm', checkDocker('proxy'));
   });

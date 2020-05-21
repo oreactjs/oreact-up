@@ -59,24 +59,6 @@ export default class PluginAPI {
     return this.program;
   }
 
-  hasMeteorPackage(name) {
-    // Check if app is using the package
-    try {
-      const contents = fs
-        .readFileSync(resolvePath(this.getBasePath(), this.getConfig().meteor.path, '.meteor/versions'))
-        .toString();
-      // Looks for "package-name@" in the beginning of a
-      // line or at the start of the file
-      const regex = new RegExp(`(^|\\s)${name}@`, 'm');
-
-      return regex.test(contents);
-    } catch (e) {
-      console.log(`Unable to load file ${resolvePath(this.getBasePath(), this.getConfig().meteor.path, '.meteor/versions')}`);
-
-      return false;
-    }
-  }
-
   validateConfig(configPath) {
     // Only print errors once.
     if (this.validationErrors.length > 0) {
@@ -116,11 +98,11 @@ export default class PluginAPI {
     if (typeof config !== 'object') {
       return config;
     }
-    if (config.meteor && typeof config.app !== 'object') {
-      config.app = Object.assign({}, config.meteor);
-      config.app.type = 'meteor';
+    if (config.oreact && typeof config.app !== 'object') {
+      config.app = Object.assign({}, config.oreact);
+      config.app.type = 'oreact';
     } else if (typeof config.app === 'object' && !('type' in config.app)) {
-      config.app.type = 'meteor';
+      config.app.type = 'oreact';
     }
 
     return runConfigPreps(config);

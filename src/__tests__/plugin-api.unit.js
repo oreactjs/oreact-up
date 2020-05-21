@@ -88,47 +88,6 @@ describe('PluginAPI', () => {
     });
   });
 
-  describe('hasMeteorPackage', () => {
-    let fsStub;
-    let configStub;
-
-    beforeEach(() => {
-      fsStub = sinon.stub(fs, 'readFileSync').callsFake(() => ({
-        toString() {
-          return `
-            package1@3
-            package2@3
-            #package3@3
-            `;
-        }
-      }));
-
-      configStub = sinon.stub(api, 'getConfig').callsFake(() => ({
-        meteor: {
-          path: '../'
-        }
-      }));
-    });
-
-    afterEach(() => {
-      fsStub.restore();
-      configStub.restore();
-    });
-
-    it('should return true if package is used', () => {
-      expect(api.hasMeteorPackage('package2')).to.equal(true);
-    });
-
-    it('should ignore commented out lines', () => {
-      expect(api.hasMeteorPackage('package3')).to.equal(false);
-    });
-
-    it('should return false if could not find app', () => {
-      fsStub.restore();
-      expect(api.hasMeteorPackage('package2')).to.equal(false);
-    });
-  });
-
   describe('validateConfig', () => {
     const errors = { errors: ['error1', 'error2'], depreciations: [] };
     let validatorStub;
@@ -166,9 +125,9 @@ describe('PluginAPI', () => {
   });
 
   describe('_normalizeConfig', () => {
-    it('should copy meteor object to app', () => {
-      const expected = { meteor: { path: '../' }, app: { type: 'meteor', path: '../', docker: { image: 'oreact/app:base', stopAppDuringPrepareBundle: true } } };
-      const config = { meteor: { path: '../' } };
+    it('should copy oreact object to app', () => {
+      const expected = { oreact: { path: '../' }, app: { type: 'oreact', path: '../', docker: { image: 'oreact/app:base', stopAppDuringPrepareBundle: true } } };
+      const config = { oreact: { path: '../' } };
       const result = api._normalizeConfig(config);
 
       expect(result).to.deep.equal(expected);
@@ -256,7 +215,7 @@ describe('PluginAPI', () => {
 
   describe('getSessions', () => {
     it('should return sessions for plugins', () => {
-      const sessions = api.getSessions(['meteor', 'mongo']);
+      const sessions = api.getSessions(['oreact', 'mongo']);
       expect(sessions).to.have.length(2);
     });
   });
@@ -270,7 +229,7 @@ describe('PluginAPI', () => {
 
   describe('_pickSessions', () => {
     it('should return sessions for each plugin', () => {
-      const result = api._pickSessions(['meteor', 'mongo']);
+      const result = api._pickSessions(['oreact', 'mongo']);
       expect(result).to.have.keys('one', 'two');
     });
   });

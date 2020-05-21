@@ -1,5 +1,5 @@
 export function checkAppStarted(list, api) {
-  const script = api.resolvePath(__dirname, 'assets/meteor-deploy-check.sh');
+  const script = api.resolvePath(__dirname, 'assets/oreact-deploy-check.sh');
   const { app } = api.getConfig();
   const publishedPort = app.docker.imagePort || 80;
 
@@ -17,10 +17,10 @@ export function checkAppStarted(list, api) {
 
 export function addStartAppTask(list, api) {
   const appConfig = api.getConfig().app;
-  const isDeploy = api.commandHistory.find(({ name }) => name === 'meteor.deploy');
+  const isDeploy = api.commandHistory.find(({ name }) => name === 'oreact.deploy');
 
-  list.executeScript('Start Meteor', {
-    script: api.resolvePath(__dirname, 'assets/meteor-start.sh'),
+  list.executeScript('Start Oreact', {
+    script: api.resolvePath(__dirname, 'assets/oreact-start.sh'),
     vars: {
       appName: appConfig.name,
       removeImage: isDeploy && !prepareBundleSupported(appConfig.docker)

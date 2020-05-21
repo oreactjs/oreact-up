@@ -10,36 +10,36 @@ sh.config.silent = true;
 function findDestination(api) {
   const base = process.cwd();
 
-  const inMeteorApp = fs.existsSync(api.resolvePath(base, 'razzle.config.js'));
-  const parentMeteorApp = fs.existsSync(api.resolvePath(base, '../razzle.config.js'));
+  const inOreactApp = fs.existsSync(api.resolvePath(base, 'razzle.config.js'));
+  const parentOreactApp = fs.existsSync(api.resolvePath(base, '../razzle.config.js'));
   const parentChildren = fs.readdirSync(api.resolvePath(base, '../'));
-  let siblingMeteorApp = false;
+  let siblingOreactApp = false;
   let otherChild = '';
 
   if (parentChildren.length === 2) {
     otherChild = parentChildren
       .filter(child => child !== path.basename(base))[0];
     if (fs.existsSync(api.resolvePath('..', otherChild, 'razzle.config.js'))) {
-      siblingMeteorApp = true;
+      siblingOreactApp = true;
     }
   }
 
-  log('in meteor app', inMeteorApp);
-  log('Parent Meteor app', parentMeteorApp);
-  log('siblingMeteorApp', siblingMeteorApp);
+  log('in oreact app', inOreactApp);
+  log('Parent Oreact app', parentOreactApp);
+  log('siblingOreactApp', siblingOreactApp);
 
   let dest = base;
   let appPath = './';
   let createFolder = false;
 
-  if (inMeteorApp) {
+  if (inOreactApp) {
     dest = api.resolvePath(base, '.deploy');
     appPath = '../';
     createFolder = true;
-  } else if (parentMeteorApp) {
+  } else if (parentOreactApp) {
     dest = base;
     appPath = '../';
-  } else if (siblingMeteorApp) {
+  } else if (siblingOreactApp) {
     dest = base;
     appPath = `../${otherChild}`;
   }

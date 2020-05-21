@@ -3,7 +3,7 @@ import fs from 'fs';
 import { spawn } from 'child_process';
 import tar from 'tar';
 
-const log = debug('mup:module:meteor');
+const log = debug('mup:module:oreact');
 
 export default function buildApp(appPath, buildOptions, verbose, api) {
   // Check if the folder exists
@@ -46,7 +46,7 @@ export default function buildApp(appPath, buildOptions, verbose, api) {
   // Make sure it is a Oreact app
   try {
     // checks for release file since there also is a
-    // .meteor folder in the user's home
+    // .oreact folder in the user's home
     fs.statSync(api.resolvePath(appPath, 'razzle.config.js'));
   } catch (e) {
     console.log(`${api.resolvePath(appPath)} is not a oreact app`);
@@ -62,7 +62,7 @@ export default function buildApp(appPath, buildOptions, verbose, api) {
       }
       resolve();
     };
-    buildMeteorApp(appPath, buildOptions, verbose, code => {
+    buildOreactApp(appPath, buildOptions, verbose, code => {
       if (code === 0) {
         callback();
 
@@ -74,7 +74,7 @@ export default function buildApp(appPath, buildOptions, verbose, api) {
   });
 }
 
-function buildMeteorApp(appPath, buildOptions, verbose, callback) {
+function buildOreactApp(appPath, buildOptions, verbose, callback) {
   let executable = buildOptions.executable || 'oreact';
   let args = [
     'build'

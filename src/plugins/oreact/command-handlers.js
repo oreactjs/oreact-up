@@ -11,7 +11,7 @@ import os from 'os';
 import random from 'random-seed';
 import uuid from 'uuid';
 
-const log = debug('mup:module:meteor');
+const log = debug('mup:module:oreact');
 
 function tmpBuildPath(appPath, api) {
   return api.resolvePath(
@@ -27,7 +27,7 @@ function tmpBuildPath(appPath, api) {
 
   return api.resolvePath(
     os.tmpdir(),
-    `mup-meteor-${uuid.v4({ random: uuidNumbers })}`
+    `mup-oreact-${uuid.v4({ random: uuidNumbers })}`
   );*/
 }
 
@@ -45,15 +45,15 @@ function tmpDirPath(appPath, api) {
 }
 
 export function logs(api) {
-  log('exec => mup meteor logs');
+  log('exec => mup oreact logs');
   const config = api.getConfig().app;
   if (!config) {
-    console.error('error: no configs found for meteor');
+    console.error('error: no configs found for oreact');
     process.exit(1);
   }
 
   const args = api.getArgs();
-  if (args[0] === 'meteor') {
+  if (args[0] === 'oreact') {
     args.shift();
   }
 
@@ -63,17 +63,17 @@ export function logs(api) {
 }
 
 export function setup(api) {
-  log('exec => mup meteor setup');
+  log('exec => mup oreact setup');
   const config = api.getConfig().app;
   if (!config) {
-    console.error('error: no configs found for meteor');
+    console.error('error: no configs found for oreact');
     process.exit(1);
   }
 
-  const list = nodemiral.taskList('Setup Meteor');
+  const list = nodemiral.taskList('Setup Oreact');
 
   list.executeScript('Setup Environment', {
-    script: api.resolvePath(__dirname, 'assets/meteor-setup.sh'),
+    script: api.resolvePath(__dirname, 'assets/oreact-setup.sh'),
     vars: {
       name: config.name
     }
@@ -166,13 +166,13 @@ export async function build(api) {
 }
 
 export async function push(api) {
-  log('exec => mup meteor push');
+  log('exec => mup oreact push');
 
-  await api.runCommand('meteor.build');
+  await api.runCommand('oreact.build');
 
   const config = api.getConfig().app;
   if (!config) {
-    console.error('error: no configs found for meteor');
+    console.error('error: no configs found for oreact');
     process.exit(1);
   }
 
@@ -184,9 +184,9 @@ export async function push(api) {
     await promisify(archiveApp)(buildOptions, api);
   }
 
-  const list = nodemiral.taskList('Pushing Meteor App');
+  const list = nodemiral.taskList('Pushing Oreact App');
 
-  list.copy('Pushing Meteor App Bundle to the Server', {
+  list.copy('Pushing Oreact App Bundle to the Server', {
     src: bundlePath,
     dest: `/opt/${config.name}/tmp/bundle.tar.gz`,
     progressBar: config.enableUploadProgressBar
@@ -217,14 +217,14 @@ export async function push(api) {
 }
 
 export function envconfig(api) {
-  log('exec => mup meteor envconfig');
+  log('exec => mup oreact envconfig');
 
   const config = api.getConfig().app;
   const servers = api.getConfig().servers;
   let bindAddress = '0.0.0.0';
 
   if (!config) {
-    console.error('error: no configs found for meteor');
+    console.error('error: no configs found for oreact');
     process.exit(1);
   }
 
@@ -245,7 +245,7 @@ export function envconfig(api) {
     config.docker.imageFrontendServer = config.dockerImageFrontendServer;
   }
   if (!config.docker.imageFrontendServer) {
-    config.docker.imageFrontendServer = 'meteorhacks/mup-frontend-server';
+    config.docker.imageFrontendServer = 'oreacthacks/mup-frontend-server';
   }
 
   // If imagePort is not set, go with port 80 which was the traditional
@@ -320,15 +320,15 @@ export function envconfig(api) {
 }
 
 export function start(api) {
-  log('exec => mup meteor start');
+  log('exec => mup oreact start');
   const config = api.getConfig().app;
 
   if (!config) {
-    console.error('error: no configs found for meteor');
+    console.error('error: no configs found for oreact');
     process.exit(1);
   }
 
-  const list = nodemiral.taskList('Start Meteor');
+  const list = nodemiral.taskList('Start Oreact');
 
   addStartAppTask(list, api);
   checkAppStarted(list, api);
@@ -342,33 +342,33 @@ export function start(api) {
 }
 
 export function deploy(api) {
-  log('exec => mup meteor deploy');
+  log('exec => mup oreact deploy');
 
   // validate settings and config before starting
   api.getSettings();
   const config = api.getConfig().app;
   if (!config) {
-    console.error('error: no configs found for meteor');
+    console.error('error: no configs found for oreact');
     process.exit(1);
   }
 
   return api
-    .runCommand('meteor.push')
+    .runCommand('oreact.push')
     .then(() => api.runCommand('default.reconfig'));
 }
 
 export function stop(api) {
-  log('exec => mup meteor stop');
+  log('exec => mup oreact stop');
   const config = api.getConfig().app;
   if (!config) {
-    console.error('error: no configs found for meteor');
+    console.error('error: no configs found for oreact');
     process.exit(1);
   }
 
-  const list = nodemiral.taskList('Stop Meteor');
+  const list = nodemiral.taskList('Stop Oreact');
 
-  list.executeScript('Stop Meteor', {
-    script: api.resolvePath(__dirname, 'assets/meteor-stop.sh'),
+  list.executeScript('Stop Oreact', {
+    script: api.resolvePath(__dirname, 'assets/oreact-stop.sh'),
     vars: {
       appName: config.name
     }
@@ -380,12 +380,12 @@ export function stop(api) {
 }
 
 export function restart(api) {
-  const list = nodemiral.taskList('Restart Meteor');
+  const list = nodemiral.taskList('Restart Oreact');
   const sessions = api.getSessions(['app']);
   const config = api.getConfig().app;
 
-  list.executeScript('Stop Meteor', {
-    script: api.resolvePath(__dirname, 'assets/meteor-stop.sh'),
+  list.executeScript('Stop Oreact', {
+    script: api.resolvePath(__dirname, 'assets/oreact-stop.sh'),
     vars: {
       appName: config.name
     }
@@ -471,6 +471,6 @@ export async function status(api) {
     }
   });
 
-  console.log(chalk[overallColor]('\n=> Meteor Status'));
+  console.log(chalk[overallColor]('\n=> Oreact Status'));
   console.log(lines.join('\n'));
 }

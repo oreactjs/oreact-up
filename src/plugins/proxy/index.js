@@ -35,7 +35,7 @@ export const hooks = {
       api.runCommand('proxy.status');
     }
   },
-  'post.meteor.setup'(api) {
+  'post.oreact.setup'(api) {
     // Only run hook on "mup setup"
     const dockerSetup = api.commandHistory.find(({ name }) => name === 'default.setup');
 

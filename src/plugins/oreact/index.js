@@ -3,15 +3,15 @@ import _validator from './validate';
 import { defaultsDeep } from 'lodash';
 import traverse from 'traverse';
 
-export const description = 'Deploy and manage meteor apps';
+export const description = 'Deploy and manage oreact apps';
 
 export const commands = _commands;
 
 export const validate = {
-  meteor: _validator,
+  oreact: _validator,
   app(config, utils) {
-    if (typeof config.meteor === 'object' || (config.app && config.app.type !== 'meteor')) {
-      // The meteor validator will check the config
+    if (typeof config.oreact === 'object' || (config.app && config.app.type !== 'oreact')) {
+      // The oreact validator will check the config
       // Or the config is telling a different app to handle deployment
       return [];
     }
@@ -21,7 +21,7 @@ export const validate = {
 };
 
 export function prepareConfig(config) {
-  if (!config.app || config.app.type !== 'meteor') {
+  if (!config.app || config.app.type !== 'oreact') {
     return config;
   }
 
@@ -35,13 +35,13 @@ export function prepareConfig(config) {
   return config;
 }
 
-function meteorEnabled(api) {
+function oreactEnabled(api) {
   const config = api.getConfig();
 
-  return config.app && config.app.type === 'meteor';
+  return config.app && config.app.type === 'oreact';
 }
 
-function onlyMeteorEnabled(...commandNames) {
+function onlyOreactEnabled(...commandNames) {
   return function(api) {
     let index = 0;
 
@@ -52,26 +52,26 @@ function onlyMeteorEnabled(...commandNames) {
       }
     }
 
-    if (meteorEnabled(api)) {
+    if (oreactEnabled(api)) {
       return api.runCommand(commandNames[index]).then(thenHandler);
     }
   };
 }
 
 export const hooks = {
-  'post.default.setup': onlyMeteorEnabled('meteor.setup'),
-  'post.default.deploy': onlyMeteorEnabled('meteor.deploy'),
-  'post.default.start': onlyMeteorEnabled('meteor.start'),
-  'post.default.stop': onlyMeteorEnabled('meteor.stop'),
-  'post.default.logs': onlyMeteorEnabled('meteor.logs'),
-  'post.default.reconfig': onlyMeteorEnabled('meteor.envconfig', 'meteor.start'),
-  'post.default.restart': onlyMeteorEnabled('meteor.restart'),
-  'post.default.status': onlyMeteorEnabled('meteor.status')
+  'post.default.setup': onlyOreactEnabled('oreact.setup'),
+  'post.default.deploy': onlyOreactEnabled('oreact.deploy'),
+  'post.default.start': onlyOreactEnabled('oreact.start'),
+  'post.default.stop': onlyOreactEnabled('oreact.stop'),
+  'post.default.logs': onlyOreactEnabled('oreact.logs'),
+  'post.default.reconfig': onlyOreactEnabled('oreact.envconfig', 'oreact.start'),
+  'post.default.restart': onlyOreactEnabled('oreact.restart'),
+  'post.default.status': onlyOreactEnabled('oreact.status')
 };
 
 export function scrubConfig(config, utils) {
-  if (config.meteor) {
-    delete config.meteor;
+  if (config.oreact) {
+    delete config.oreact;
   }
 
   if (config.app) {
@@ -94,7 +94,7 @@ export function scrubConfig(config, utils) {
 }
 
 export function swarmOptions(config) {
-  if (config && config.app && config.app.type === 'meteor') {
+  if (config && config.app && config.app.type === 'oreact') {
     return {
       labels: Object.keys(config.app.servers).reduce((result, server) => {
         result[server] = {
