@@ -12,17 +12,17 @@ import { registerScrubber } from './scrub-config';
 import { registerSwarmOptions } from './swarm-options';
 import resolveFrom from 'resolve-from';
 
-const log = debug('mup:plugin-loader');
+const log = debug('orup:plugin-loader');
 
 const modules = {};
 export default modules;
 
-// Load all folders in ./plugins as mup plugins.
+// Load all folders in ./plugins as orup plugins.
 // The directory name is the module name.
 const bundledPlugins = fs
   .readdirSync(resolve(__dirname, 'plugins'))
   .map(name => ({ name, path: `./plugins/${name}` }))
-  .filter(isDirectoryMupPlugin);
+  .filter(isDirectoryOrupPlugin);
 
 loadPlugins(bundledPlugins);
 
@@ -42,10 +42,10 @@ export function locatePluginDir(name, configPath, appPath) {
     return configLocalPath;
   }
   try {
-    const mupLocal = require.resolve(name);
-    log('plugin installed locally with mup');
+    const orupLocal = require.resolve(name);
+    log('plugin installed locally with orup');
 
-    return mupLocal;
+    return orupLocal;
   } catch (e) {
     // Continues to next location to resolve from
   }
@@ -124,7 +124,7 @@ export function loadPlugins(plugins) {
     });
 }
 
-function isDirectoryMupPlugin({ name, path: modulePath }) {
+function isDirectoryOrupPlugin({ name, path: modulePath }) {
   if (name === '__tests__') {
     return false;
   }

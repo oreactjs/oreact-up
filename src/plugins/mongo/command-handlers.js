@@ -2,10 +2,10 @@ import chalk from 'chalk';
 import debug from 'debug';
 import nodemiral from 'nodemiral';
 
-const log = debug('mup:module:mongo');
+const log = debug('orup:module:mongo');
 
 export function logs(api) {
-  log('exec => mup mongo logs');
+  log('exec => orup mongo logs');
 
   const args = api.getArgs();
   const sessions = api.getSessions(['mongo']);
@@ -17,10 +17,10 @@ export function logs(api) {
 }
 
 export function setup(api) {
-  log('exec => mup mongo setup');
+  log('exec => orup mongo setup');
 
   if (!api.getConfig().mongo) {
-    // could happen when running "mup mongo setup"
+    // could happen when running "orup mongo setup"
     console.log(
       'Not setting up built-in mongodb since there is no mongo config'
     );
@@ -33,13 +33,13 @@ export function setup(api) {
 
   if (oreactSessions.length !== 1) {
     console.log(
-      'To use mup built-in mongodb setup, you should have only one oreact app server. To have more app servers, use an external mongodb setup'
+      'To use orup built-in mongodb setup, you should have only one oreact app server. To have more app servers, use an external mongodb setup'
     );
 
     return;
   } else if (mongoSessions[0]._host !== oreactSessions[0]._host) {
     console.log(
-      'To use mup built-in mongodb setup, you should have both oreact app and mongodb on the same server'
+      'To use orup built-in mongodb setup, you should have both oreact app and mongodb on the same server'
     );
 
     return;
@@ -62,7 +62,7 @@ export function setup(api) {
 }
 
 export function start(api) {
-  log('exec => mup mongo start');
+  log('exec => orup mongo start');
 
   const mongoSessions = api.getSessions(['mongo']);
   const oreactSessions = api.getSessions(['app']);
@@ -93,7 +93,7 @@ export function start(api) {
 }
 
 export function stop(api) {
-  log('exec => mup mongo stop');
+  log('exec => orup mongo stop');
   const list = nodemiral.taskList('Stop Mongo');
 
   list.executeScript('stop mongo', {

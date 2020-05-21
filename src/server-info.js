@@ -2,7 +2,7 @@ import debug from 'debug';
 import { map } from 'bluebird';
 import { runSSHCommand } from './utils';
 
-const log = debug('mup:server-info');
+const log = debug('orup:server-info');
 
 function parseJSONArray(stdout, code) {
   if (code === 0) {
@@ -79,9 +79,9 @@ export const _collectors = {
   }
 };
 
-const prefix = '<============mup-var-start========';
-const suffix = '================mup-var-stop=====>';
-const codeSeperator = 'mup-var-code=======';
+const prefix = '<============orup-var-start========';
+const suffix = '================orup-var-stop=====>';
+const codeSeperator = 'orup-var-code=======';
 
 function generateVarCommand(name, command) {
   return `

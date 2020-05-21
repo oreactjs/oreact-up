@@ -22,7 +22,7 @@ import {
 import { map } from 'bluebird';
 import nodemiral from 'nodemiral';
 
-const log = debug('mup:module:docker');
+const log = debug('orup:module:docker');
 
 function uniqueSessions(api) {
   const sessions = api.getSessions(['app', 'mongo', 'proxy']);
@@ -39,7 +39,7 @@ function uniqueSessions(api) {
 }
 
 export function setup(api) {
-  log('exec => mup docker setup');
+  log('exec => orup docker setup');
   const config = api.getConfig();
   const swarmEnabled = config.swarm;
   const servers = Object.keys(config.servers || {});

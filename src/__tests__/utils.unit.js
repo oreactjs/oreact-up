@@ -110,8 +110,8 @@ describe('utils', () => {
 
   describe('filterArgv', () => {
     it('should remove unwanted options', () => {
-      const argv = { _: ['logs'], config: './mup.js', tail: true };
-      const argvArray = ['mup', 'logs', '--config=./mup.js', '--tail'];
+      const argv = { _: ['logs'], config: './orup.js', tail: true };
+      const argvArray = ['orup', 'logs', '--config=./orup.js', '--tail'];
       const unwanted = ['_', 'config'];
       const result = utils.filterArgv(argvArray, argv, unwanted);
 
@@ -119,7 +119,7 @@ describe('utils', () => {
     });
     it('should remove undefined and false options', () => {
       const argv = { _: ['logs'], config: undefined, verbose: true, follow: false};
-      const argvArray = ['mup', 'logs', '--verbose'];
+      const argvArray = ['orup', 'logs', '--verbose'];
       const unwanted = ['_'];
 
       const result = utils.filterArgv(argvArray, argv, unwanted);
@@ -128,7 +128,7 @@ describe('utils', () => {
     });
     it('should add non-boolean values', () => {
       const argv = { _: ['logs'], tail: '10', follow: true };
-      const argvArray = ['mup', 'logs', '--tail=10', '--follow'];
+      const argvArray = ['orup', 'logs', '--tail=10', '--follow'];
       const unwanted = ['_'];
 
       const result = utils.filterArgv(argvArray, argv, unwanted);
@@ -137,7 +137,7 @@ describe('utils', () => {
     });
     it('should remove options not provided by user', () => {
       const argv = { _: ['logs'], follow: true, tail: '10' };
-      const argvArray = ['mup', 'logs'];
+      const argvArray = ['orup', 'logs'];
       const unwanted = ['_'];
 
       const result = utils.filterArgv(argvArray, argv, unwanted);

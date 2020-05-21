@@ -1,4 +1,4 @@
-var config = require('./mup.js');
+var config = require('./orup.js');
 
 config.meteor.path = '../helloapp-old';
 delete config.meteor.docker.image;

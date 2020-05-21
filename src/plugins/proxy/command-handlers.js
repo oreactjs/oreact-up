@@ -4,11 +4,11 @@ import debug from 'debug';
 import fs from 'fs';
 import nodemiral from 'nodemiral';
 
-const log = debug('mup:module:proxy');
-const PROXY_CONTAINER_NAME = 'mup-nginx-proxy';
+const log = debug('orup:module:proxy');
+const PROXY_CONTAINER_NAME = 'orup-nginx-proxy';
 
 export function logs(api) {
-  log('exec => mup proxy logs');
+  log('exec => orup proxy logs');
   const config = api.getConfig().proxy;
 
   if (!config) {
@@ -23,7 +23,7 @@ export function logs(api) {
 }
 
 export function leLogs(api) {
-  log('exec => mup proxy le-logs');
+  log('exec => orup proxy le-logs');
   const config = api.getConfig().proxy;
 
   if (!config) {
@@ -43,7 +43,7 @@ export function leLogs(api) {
 }
 
 export function setup(api) {
-  log('exec => mup proxy setup');
+  log('exec => orup proxy setup');
   const config = api.getConfig().proxy;
   const appName = api.getConfig().app.name;
 
@@ -200,7 +200,7 @@ export function reconfigShared(api) {
 }
 
 export function start(api) {
-  log('exec => mup proxy start');
+  log('exec => orup proxy start');
   const config = api.getConfig().proxy;
   if (!config) {
     console.error('error: no configs found for proxy');
@@ -225,7 +225,7 @@ export function start(api) {
 }
 
 export function stop(api) {
-  log('exec => mup proxy stop');
+  log('exec => orup proxy stop');
 
   const list = nodemiral.taskList('Stop proxy');
 
@@ -242,7 +242,7 @@ export function stop(api) {
 }
 
 export async function nginxConfig(api) {
-  log('exec => mup proxy nginx-config');
+  log('exec => orup proxy nginx-config');
 
   const command = `docker exec ${PROXY_CONTAINER_NAME} cat /etc/nginx/conf.d/default.conf`;
   const { servers, app } = api.getConfig();

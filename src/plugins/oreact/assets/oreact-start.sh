@@ -3,7 +3,7 @@
 set -e
 
 APP_DIR=/opt/<%=appName %>
-IMAGE=mup-<%= appName.toLowerCase() %>
+IMAGE=orup-<%= appName.toLowerCase() %>
 
 <% if (removeImage) { %>
 echo "Removing images"

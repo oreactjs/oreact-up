@@ -36,7 +36,7 @@ export const hooks = {
     }
   },
   'post.oreact.setup'(api) {
-    // Only run hook on "mup setup"
+    // Only run hook on "orup setup"
     const dockerSetup = api.commandHistory.find(({ name }) => name === 'default.setup');
 
     if (api.getConfig().proxy && dockerSetup) {

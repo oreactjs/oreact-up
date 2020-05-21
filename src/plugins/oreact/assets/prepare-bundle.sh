@@ -4,7 +4,7 @@ set -e
 
 APP_DIR=/opt/<%= appName %>
 APPNAME=<%= appName %>
-IMAGE=mup-<%= appName.toLowerCase() %>
+IMAGE=orup-<%= appName.toLowerCase() %>
 
 build_failed() {
   <% if (stopApp) { %>

@@ -14,7 +14,7 @@
 ## 1.4.4 - April 2, 2018
 - Allow customizing the docker image created during Prepare Bundle. For example, this can be used to install packages using apt-get.
 - `mup status` will check if the default shell is bash
-- Mup will exit when a hook script fails
+- Orup will exit when a hook script fails
 - Fix running `mup restart`
 - Fix passing arguments to `docker logs` when they are in the format `--option=value` instead of `--option value`
 - Fix the validation error that the port is ignored showing when it shouldn't
@@ -96,7 +96,7 @@ The `mup status` command gives an overview of what is running on the servers and
 - When there is only one server, `mup ssh` will not require the name of a server
 - Add `zodern/meteor` to list of images that Prepare Bundle is automatically enabled for
 - If the app's docker container is restarting during 10 checks, the Deployment Verifier will revert the app without waiting the full time in `deployCheckWaitTime`
-- Some of Mup's dependencies use Buffer.alloc. When the version of node used to run mup is missing the function, mup will show a message explaining the problem and exit
+- Some of Orup's dependencies use Buffer.alloc. When the version of node used to run mup is missing the function, mup will show a message explaining the problem and exit
 - Added 10 second timeout to the curl command in the Deployment Verifier
 - Fix retry logic for the copy file task
 - Fix `mup restart` and `mup meteor restart` when config has an `app` object instead of `meteor`

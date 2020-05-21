@@ -27,7 +27,7 @@ describe('module - oreact', function() {
 
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
-      const out = sh.exec('mup oreact setup');
+      const out = sh.exec('orup oreact setup');
       assert.equal(out.code, 0);
 
       const num = countOccurences('Setup Environment: SUCCESS', out.output);
@@ -46,10 +46,10 @@ describe('module - oreact', function() {
 
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
-      sh.exec('mup docker setup');
-      sh.exec('mup oreact setup');
+      sh.exec('orup docker setup');
+      sh.exec('orup oreact setup');
 
-      const out = sh.exec('mup oreact push --cached-build');
+      const out = sh.exec('orup oreact push --cached-build');
       assert.equal(out.code, 0);
 
       const num = countOccurences(
@@ -71,9 +71,9 @@ describe('module - oreact', function() {
     it('should send the environment variables to "oreact" vm', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
-      sh.exec('mup oreact setup');
+      sh.exec('orup oreact setup');
 
-      const out = sh.exec('mup oreact envconfig');
+      const out = sh.exec('orup oreact envconfig');
       assert.equal(out.code, 0);
 
       const num = countOccurences(
@@ -97,9 +97,9 @@ describe('module - oreact', function() {
     });
     it('should push server specific env variables', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-2'));
-      sh.exec('mup oreact setup');
+      sh.exec('orup oreact setup');
 
-      const out = sh.exec('mup oreact envconfig');
+      const out = sh.exec('orup oreact envconfig');
 
       expect(out.code).to.equal(0);
 
@@ -119,9 +119,9 @@ describe('module - oreact', function() {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
       sh.exec(
-        'mup setup && mup oreact push --cached-build && mup oreact envconfig'
+        'orup setup && orup oreact push --cached-build && orup oreact envconfig'
       );
-      const out = sh.exec('mup oreact start');
+      const out = sh.exec('orup oreact start');
       assert.equal(out.code, 0);
 
       const num = countOccurences('Start Oreact: SUCCESS', out.output);
@@ -167,8 +167,8 @@ describe('module - oreact', function() {
     it('should deploy oreact app on "oreact" vm', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
-      sh.exec('mup setup');
-      const out = sh.exec('mup oreact deploy --cached-build');
+      sh.exec('orup setup');
+      const out = sh.exec('orup oreact deploy --cached-build');
 
       checkDeploy(out, '<title>helloapp-new</title>');
     });
@@ -176,8 +176,8 @@ describe('module - oreact', function() {
     it('should deploy app using Oreact 1.2', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
-      sh.exec('mup setup --config mup.old.js');
-      const out = sh.exec('mup oreact deploy --cached-build --config mup.old.js');
+      sh.exec('orup setup --config orup.old.js');
+      const out = sh.exec('orup oreact deploy --cached-build --config orup.old.js');
       expect(out.code).to.equal(0);
       checkDeploy(out, '<title>helloapp</title>');
     });
@@ -187,7 +187,7 @@ describe('module - oreact', function() {
     it('should pull the logs from "oreact" vm', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
-      const out = sh.exec('mup oreact logs --tail 2');
+      const out = sh.exec('orup oreact logs --tail 2');
       assert.equal(out.code, 0);
     });
   });
@@ -197,8 +197,8 @@ describe('module - oreact', function() {
     it('should stop oreact app on "oreact" vm', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
-      sh.exec('mup setup && mup deploy --cached-build');
-      const out = sh.exec('mup oreact stop');
+      sh.exec('orup setup && orup deploy --cached-build');
+      const out = sh.exec('orup oreact stop');
       assert.equal(out.code, 0);
 
       const num = countOccurences('Stop Oreact: SUCCESS', out.output);

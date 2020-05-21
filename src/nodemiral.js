@@ -16,7 +16,7 @@ function copy(session, _options, callback) {
     // Check if common error that a known fix
     if (err) {
       if (err.message === 'No such file') {
-        err.solution = 'Please run "mup setup" to create missing folders on the server.';
+        err.solution = 'Please run "orup setup" to create missing folders on the server.';
 
         // Skip retries since we will have the same error
         retries = 10;

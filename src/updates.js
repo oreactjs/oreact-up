@@ -4,7 +4,7 @@ import debug from 'debug';
 import Npm from 'silent-npm-registry-client';
 import pkg from '../package.json';
 
-const log = debug('mup:updates');
+const log = debug('orup:updates');
 
 export default function() {
   log('checking for updates');
@@ -60,7 +60,7 @@ export default function() {
 
       if (available) {
         const version = showStable ? npmVersion : nextVersion;
-        const command = showStable ? 'npm i -g mup' : 'npm i -g mup@next';
+        const command = showStable ? 'npm i -g orup' : 'npm i -g orup@next';
 
         let text = `update available ${pkg.version} => ${version}`;
         text += `\nTo update, run ${chalk.green(command)}`;

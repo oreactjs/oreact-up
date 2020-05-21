@@ -1,4 +1,4 @@
-FROM mup-tests-server
+FROM orup-tests-server
 RUN apt-get update
 RUN apt-get -y install lxc iptables && \
     curl https://get.docker.com/ | sh && usermod -aG docker $(whoami)

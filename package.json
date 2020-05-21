@@ -1,25 +1,17 @@
 {
-  "name": "mup",
+  "name": "orup",
   "version": "1.4.6",
-  "description": "Production Quality Meteor Deployments",
+  "description": "Production Quality Oreact Deployments",
   "main": "lib/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zodern/meteor-up.git"
-  },
   "keywords": [
-    "meteor",
-    "meteor-up",
+    "oreact",
+    "oreact-up",
     "deploy"
   ],
   "author": "Kadira Inc.",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/zodern/meteor-up/issues"
-  },
-  "homepage": "http://meteor-up.com/",
   "bin": {
-    "mup": "./index.js"
+    "orup": "./index.js"
   },
   "scripts": {
     "prepublish": "npm run build -s",
@@ -37,7 +29,6 @@
     "lint:docs-configs": "node tests/validate-docs.js",
     "lint:css": "cd docs && stylelint css/*.css",
     "docs": "cd docs && bundle exec jekyll serve",
-    "postinstall": "opencollective postinstall || (exit 0)",
     "clean-shrinkwrap": "cd tests && node clean-shrinkwrap.js"
   },
   "devDependencies": {
@@ -103,10 +94,5 @@
       "src/plugins/**",
       "**/__tests__/**"
     ]
-  },
-  "collective": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/meteor-up",
-    "logo": "https://opencollective.com/opencollective/logo.txt"
   }
 }

@@ -21,19 +21,19 @@ describe('PluginAPI', () => {
 
   describe('configPath', () => {
     it('should prefer --config option', () => {
-      const _api = new PluginAPI(base, filteredArgs, { config: '~/project2/.deploy/mup.js' });
+      const _api = new PluginAPI(base, filteredArgs, { config: '~/project2/.deploy/orup.js' });
 
       expect(_api.configPath).to.include('project2');
     });
 
     it('should fallback to base', () => {
-      expect(api.configPath).to.equal(path.join(base, 'mup.js'));
+      expect(api.configPath).to.equal(path.join(base, 'orup.js'));
     });
   });
 
   describe('base', () => {
     it('should prefer config path', () => {
-      const _api = new PluginAPI(base, filteredArgs, { config: '~/project2/.deploy/mup.js' });
+      const _api = new PluginAPI(base, filteredArgs, { config: '~/project2/.deploy/orup.js' });
       expect(_api.base).to.equal('~/project2/.deploy');
     });
 

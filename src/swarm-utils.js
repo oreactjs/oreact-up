@@ -2,7 +2,7 @@ import _ from 'lodash';
 import debug from 'debug';
 import { getOptions } from './swarm-options';
 
-const log = debug('mup:swarm-utils');
+const log = debug('orup:swarm-utils');
 
 export function hostsToServer(config, hosts) {
   const servers = config.servers;
@@ -153,7 +153,7 @@ export function currentLabels(config, info) {
       info[host].swarmNodes.forEach(node => {
         const nodeHost = idToHost[node.ID];
 
-        // Check if it is a server mup has access to
+        // Check if it is a server orup has access to
         if (nodeHost === null) {
           return;
         }

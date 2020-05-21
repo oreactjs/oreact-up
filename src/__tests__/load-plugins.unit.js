@@ -9,7 +9,7 @@ describe('load-plugins', () => {
 
   describe('locatePluginDir', () => {
     it('should identify paths', () => {
-      const configPath = '/projects/a/mup.js';
+      const configPath = '/projects/a/orup.js';
 
       function createResult(value) {
         return locatePluginDir(value, configPath).replace(/\\/g, '/');

@@ -98,7 +98,7 @@ export function swarmOptions(config) {
     return {
       labels: Object.keys(config.app.servers).reduce((result, server) => {
         result[server] = {
-          [`mup-app-${config.app.name}`]: 'true'
+          [`orup-app-${config.app.name}`]: 'true'
         };
 
         return result;

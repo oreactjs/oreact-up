@@ -17,7 +17,7 @@ import { scrubConfig } from './scrub-config';
 import serverInfo from './server-info';
 
 const { resolvePath, moduleNotFoundIsPath } = utils;
-const log = debug('mup:api');
+const log = debug('orup:api');
 
 export default class PluginAPI {
   constructor(base, filteredArgs, program) {
@@ -28,7 +28,7 @@ export default class PluginAPI {
     this.settings = null;
     this.sessions = null;
     this._enabledSessions = program.servers ? program.servers.split(',') : [];
-    this.configPath = program.config ? resolvePath(program.config) : path.join(this.base, 'mup.js');
+    this.configPath = program.config ? resolvePath(program.config) : path.join(this.base, 'orup.js');
     this.settingsPath = program.settings;
     this.verbose = program.verbose;
     this.program = program;
@@ -119,9 +119,9 @@ export default class PluginAPI {
           return {};
         }
         if (e.code === 'MODULE_NOT_FOUND' && moduleNotFoundIsPath(e, this.configPath)) {
-          console.error('"mup.js" file not found at');
+          console.error('"orup.js" file not found at');
           console.error(`  ${this.configPath}`);
-          console.error('Run "mup init" to create it.');
+          console.error('Run "orup init" to create it.');
         } else {
           console.error(chalk.red('Error loading config file:'));
           console.error(e);
@@ -171,7 +171,7 @@ export default class PluginAPI {
         [
           'It does not exist.',
           '',
-          'You can create the file with "mup init" or add the option',
+          'You can create the file with "orup init" or add the option',
           '"--settings path/to/settings.json" to load it from a',
           'different location.'
         ].forEach(text => console.log(text));
@@ -374,7 +374,7 @@ export default class PluginAPI {
     const config = this.getConfig();
     this.sessions = {};
 
-    // `mup.servers` contains login information for servers
+    // `orup.servers` contains login information for servers
     // Use this information to create nodemiral sessions.
     for (const name in config.servers) {
       if (!config.servers.hasOwnProperty(name)) {

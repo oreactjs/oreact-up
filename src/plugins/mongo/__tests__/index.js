@@ -15,8 +15,8 @@ describe('module - mongo', function() {
     it('should pull logs from "oreact" vm', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
-      sh.exec('mup setup');
-      const out = sh.exec('mup mongo logs');
+      sh.exec('orup setup');
+      const out = sh.exec('orup mongo logs');
 
       expect(out.code).to.be.equal(0);
       expect(countOccurences('MongoDB starting :', out.output)).to.be.equal(1);
@@ -29,7 +29,7 @@ describe('module - mongo', function() {
       const serverInfo = servers.mymongo;
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
-      const out = sh.exec('mup mongo setup');
+      const out = sh.exec('orup mongo setup');
       expect(out.code).to.be.equal(0);
 
       expect(
@@ -50,9 +50,9 @@ describe('module - mongo', function() {
       const serverInfo = servers.mymongo;
 
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
-      sh.exec('mup docker setup && mup mongo setup');
+      sh.exec('orup docker setup && orup mongo setup');
 
-      const out = sh.exec('mup mongo start');
+      const out = sh.exec('orup mongo start');
       expect(out.code).to.be.equal(0);
 
       expect(countOccurences('Start Mongo: SUCCESS', out.output)).to.be.equal(
@@ -69,9 +69,9 @@ describe('module - mongo', function() {
       const serverInfo = servers.mymongo;
 
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
-      sh.exec('mup docker setup && mup mongo setup && mup mongo start');
+      sh.exec('orup docker setup && orup mongo setup && orup mongo start');
 
-      const out = sh.exec('mup mongo stop');
+      const out = sh.exec('orup mongo stop');
       expect(out.code).to.be.equal(0);
 
       expect(countOccurences('stop mongo: SUCCESS', out.output)).to.be.equal(1);

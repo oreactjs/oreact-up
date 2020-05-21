@@ -3,7 +3,7 @@ import fs from 'fs';
 import { spawn } from 'child_process';
 import tar from 'tar';
 
-const log = debug('mup:module:oreact');
+const log = debug('orup:module:oreact');
 
 export default function buildApp(appPath, buildOptions, verbose, api) {
   // Check if the folder exists

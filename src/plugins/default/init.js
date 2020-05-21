@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import sh from 'shelljs';
 
-const log = debug('mup:init');
+const log = debug('orup:init');
 
 sh.config.silent = true;
 
@@ -60,13 +60,13 @@ function createDeployFolder(api) {
 }
 
 export default function init(api) {
-  const configSource = api.resolvePath(__dirname, 'template/mup.js.sample');
+  const configSource = api.resolvePath(__dirname, 'template/orup.js.sample');
   const settingsSource = api.resolvePath(__dirname, 'template/settings.json');
 
   const { appPath, dest, createFolder } = findDestination(api);
 
   const settingsDest = api.resolvePath(dest, 'settings.json');
-  const configDest = api.resolvePath(dest, 'mup.js');
+  const configDest = api.resolvePath(dest, 'orup.js');
 
   const configExists = fs.existsSync(api.resolvePath(configDest));
   const settingsExist = fs.existsSync(settingsDest);
@@ -89,17 +89,17 @@ export default function init(api) {
       .replace('<app path>', appPath);
     fs.writeFileSync(configDest, configContents);
 
-    console.log(`Created mup.js at ${configDest}`);
+    console.log(`Created orup.js at ${configDest}`);
     console.log('');
     console.log('Next Steps:');
     console.log('');
-    console.log('  Open mup.js and edit the config to meet your needs.');
+    console.log('  Open orup.js and edit the config to meet your needs.');
     console.log('  Required changes have been marked with a TODO comment.');
     console.log('');
     console.log('  Then, run the command:');
-    console.log('  mup setup');
+    console.log('  orup setup');
   } else {
-    console.log('Skipping creation of mup.js');
-    console.log(`mup.js already exists at ${configDest}`);
+    console.log('Skipping creation of orup.js');
+    console.log(`orup.js already exists at ${configDest}`);
   }
 }

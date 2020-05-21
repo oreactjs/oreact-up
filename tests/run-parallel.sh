@@ -10,7 +10,7 @@ source ./tests/setup.sh
 #running a single test
 function run_test {
     export PORT=`expr $PORT + $PARALLEL_SEQ`
-    DOCKER_ID=$( docker run -v $MUP_DIR/tests/ssh/new.pub:/root/.ssh/authorized_keys -p 0.0.0.0:$PORT:22 --privileged=true -d -t mup-tests-server /sbin/my_init )
+    DOCKER_ID=$( docker run -v $MUP_DIR/tests/ssh/new.pub:/root/.ssh/authorized_keys -p 0.0.0.0:$PORT:22 --privileged=true -d -t orup-tests-server /sbin/my_init )
     sleep 5
     export PROD_SERVER_USER=root
     export PROD_SERVER="0.0.0.0"

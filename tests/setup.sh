@@ -14,28 +14,28 @@ rm -rf new*
 eval `ssh-agent`
 
 
-docker rm -f $( docker ps -a -q --filter=ancestor=mup-tests-server )
-docker rm -f $( docker ps -a -q --filter=ancestor=mup-tests-server-docker )
+docker rm -f $( docker ps -a -q --filter=ancestor=orup-tests-server )
+docker rm -f $( docker ps -a -q --filter=ancestor=orup-tests-server-docker )
 } > /dev/null
 
-if [[ -z $( docker images -aq mup-tests-server) ]]; then
-    echo "Building mup-tests-server"
-    docker build -t mup-tests-server . > /dev/null
+if [[ -z $( docker images -aq orup-tests-server) ]]; then
+    echo "Building orup-tests-server"
+    docker build -t orup-tests-server . > /dev/null
 fi
 
-if [[ -z $( docker images -aq mup-tests-server-docker) ]]; then
-    echo "Building mup-tests-server-docker"
-    docker build -f ./Dockerfile_docker -t mup-tests-server-docker . > /dev/null
-    docker run -d --name mup-tests-server-docker-setup --privileged mup-tests-server-docker
+if [[ -z $( docker images -aq orup-tests-server-docker) ]]; then
+    echo "Building orup-tests-server-docker"
+    docker build -f ./Dockerfile_docker -t orup-tests-server-docker . > /dev/null
+    docker run -d --name orup-tests-server-docker-setup --privileged orup-tests-server-docker
     sleep 2
-    docker exec mup-tests-server-docker-setup service docker start
-    docker exec -t mup-tests-server-docker-setup docker pull mongo:3.4.1
-    docker exec -t mup-tests-server-docker-setup docker pull kadirahq/meteord
-    docker exec -t mup-tests-server-docker-setup docker pull abernix/meteord:base
-    docker exec -t mup-tests-server-docker-setup docker pull jwilder/nginx-proxy
-    docker exec -t mup-tests-server-docker-setup docker pull jrcs/letsencrypt-nginx-proxy-companion:latest
-    docker commit mup-tests-server-docker-setup mup-tests-server-docker
-    docker rm -f mup-tests-server-docker-setup
+    docker exec orup-tests-server-docker-setup service docker start
+    docker exec -t orup-tests-server-docker-setup docker pull mongo:3.4.1
+    docker exec -t orup-tests-server-docker-setup docker pull kadirahq/meteord
+    docker exec -t orup-tests-server-docker-setup docker pull abernix/meteord:base
+    docker exec -t orup-tests-server-docker-setup docker pull jwilder/nginx-proxy
+    docker exec -t orup-tests-server-docker-setup docker pull jrcs/letsencrypt-nginx-proxy-companion:latest
+    docker commit orup-tests-server-docker-setup orup-tests-server-docker
+    docker rm -f orup-tests-server-docker-setup
 fi
 
 {

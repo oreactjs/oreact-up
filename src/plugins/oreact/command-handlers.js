@@ -11,7 +11,7 @@ import os from 'os';
 import random from 'random-seed';
 import uuid from 'uuid';
 
-const log = debug('mup:module:oreact');
+const log = debug('orup:module:oreact');
 
 function tmpBuildPath(appPath, api) {
   return api.resolvePath(
@@ -27,7 +27,7 @@ function tmpBuildPath(appPath, api) {
 
   return api.resolvePath(
     os.tmpdir(),
-    `mup-oreact-${uuid.v4({ random: uuidNumbers })}`
+    `orup-oreact-${uuid.v4({ random: uuidNumbers })}`
   );*/
 }
 
@@ -45,7 +45,7 @@ function tmpDirPath(appPath, api) {
 }
 
 export function logs(api) {
-  log('exec => mup oreact logs');
+  log('exec => orup oreact logs');
   const config = api.getConfig().app;
   if (!config) {
     console.error('error: no configs found for oreact');
@@ -63,7 +63,7 @@ export function logs(api) {
 }
 
 export function setup(api) {
-  log('exec => mup oreact setup');
+  log('exec => orup oreact setup');
   const config = api.getConfig().app;
   if (!config) {
     console.error('error: no configs found for oreact');
@@ -166,7 +166,7 @@ export async function build(api) {
 }
 
 export async function push(api) {
-  log('exec => mup oreact push');
+  log('exec => orup oreact push');
 
   await api.runCommand('oreact.build');
 
@@ -217,7 +217,7 @@ export async function push(api) {
 }
 
 export function envconfig(api) {
-  log('exec => mup oreact envconfig');
+  log('exec => orup oreact envconfig');
 
   const config = api.getConfig().app;
   const servers = api.getConfig().servers;
@@ -245,7 +245,7 @@ export function envconfig(api) {
     config.docker.imageFrontendServer = config.dockerImageFrontendServer;
   }
   if (!config.docker.imageFrontendServer) {
-    config.docker.imageFrontendServer = 'oreacthacks/mup-frontend-server';
+    config.docker.imageFrontendServer = 'meteorhacks/mup-frontend-server';
   }
 
   // If imagePort is not set, go with port 80 which was the traditional
@@ -320,7 +320,7 @@ export function envconfig(api) {
 }
 
 export function start(api) {
-  log('exec => mup oreact start');
+  log('exec => orup oreact start');
   const config = api.getConfig().app;
 
   if (!config) {
@@ -342,7 +342,7 @@ export function start(api) {
 }
 
 export function deploy(api) {
-  log('exec => mup oreact deploy');
+  log('exec => orup oreact deploy');
 
   // validate settings and config before starting
   api.getSettings();
@@ -358,7 +358,7 @@ export function deploy(api) {
 }
 
 export function stop(api) {
-  log('exec => mup oreact stop');
+  log('exec => orup oreact stop');
   const config = api.getConfig().app;
   if (!config) {
     console.error('error: no configs found for oreact');

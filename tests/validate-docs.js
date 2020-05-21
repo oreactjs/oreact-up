@@ -7,7 +7,7 @@ var sh = require('shelljs');
 
 var docsPath = path.resolve(__dirname, '../docs/docs.md');
 var tmpPath = path.resolve(__dirname, './validate-tmp');
-var tmpConfig = path.resolve(__dirname, './validate-tmp/mup.js');
+var tmpConfig = path.resolve(__dirname, './validate-tmp/orup.js');
 
 var docs = fs.readFileSync(docsPath).toString().split('## Creating a plugin')[0];
 

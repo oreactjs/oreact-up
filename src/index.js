@@ -4,7 +4,7 @@ import modules, { loadPlugins, locatePluginDir } from './load-plugins';
 import chalk from 'chalk';
 import checkUpdates from './updates';
 import { filterArgv } from './utils';
-import MupAPI from './plugin-api';
+import OrupAPI from './plugin-api';
 import pkg from '../package.json';
 import { registerHook } from './hooks';
 import yargs from 'yargs';
@@ -31,7 +31,7 @@ function commandWrapper(pluginName, commandName) {
       .then(() => {
         const rawArgv = process.argv.slice(2);
         const filteredArgv = filterArgv(rawArgv, yargs.argv, unwantedArgvs);
-        const api = new MupAPI(process.cwd(), filteredArgv, yargs.argv);
+        const api = new OrupAPI(process.cwd(), filteredArgv, yargs.argv);
         let potentialPromise;
 
         try {
@@ -51,7 +51,7 @@ function commandWrapper(pluginName, commandName) {
 }
 
 // Load config before creating commands
-const preAPI = new MupAPI(process.cwd(), process.argv, yargs.argv);
+const preAPI = new OrupAPI(process.cwd(), process.argv, yargs.argv);
 const config = preAPI.getConfig(false);
 
 // Load plugins
@@ -75,7 +75,7 @@ if (config.hooks) {
 }
 
 let program = yargs
-  .usage(`\nUsage: ${chalk.yellow('mup')} <command> [args]`)
+  .usage(`\nUsage: ${chalk.yellow('orup')} <command> [args]`)
   .version(pkg.version)
   .alias('version', 'V')
   .global('version', false)
@@ -85,7 +85,7 @@ let program = yargs
     string: true
   })
   .option('config', {
-    description: 'Path to mup.js config file',
+    description: 'Path to orup.js config file',
     requiresArg: true,
     string: true
   })

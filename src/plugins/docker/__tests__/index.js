@@ -15,14 +15,14 @@ describe('module - docker', function() {
     // TODO break this into multiple functions
     // so parts can be used for other tests
     function checkDocker(name) {
-      // TODO get server name form mup.js file
+      // TODO get server name form orup.js file
       const serverInfo = servers[`my${name}`];
 
       return async function() {
         this.timeout(60000);
 
         sh.cd(resolvePath(os.tmpdir(), 'tests/project-1'));
-        const out = sh.exec('mup docker setup');
+        const out = sh.exec('orup docker setup');
         assert.equal(out.code, 0);
 
         const num = countOccurences('Setup Docker: SUCCESS', out.output);

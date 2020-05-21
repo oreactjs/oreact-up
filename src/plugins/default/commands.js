@@ -2,7 +2,7 @@ import * as commandHandlers from './command-handlers';
 import initHandler from './init';
 
 export const init = {
-  description: 'Setup files for new mup project',
+  description: 'Setup files for new orup project',
   handler: initHandler
 };
 

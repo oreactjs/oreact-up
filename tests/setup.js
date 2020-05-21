@@ -19,20 +19,20 @@ if (process.platform !== 'win32') {
   });
 }
 
-var mupDir = process.cwd();
+var orupDir = process.cwd();
 var tmp = path.resolve(os.tmpdir(), 'tests');
-var helloapp = path.resolve(mupDir, 'tests/fixtures/helloapp');
+var helloapp = path.resolve(orupDir, 'tests/fixtures/helloapp');
 
 if (!fs.existsSync(path.resolve(helloapp, 'node_modules'))) {
-  sh.cd(path.resolve(mupDir, 'tests/fixtures/helloapp'));
+  sh.cd(path.resolve(orupDir, 'tests/fixtures/helloapp'));
   sh.exec('npm install');
 }
 
 
 sh.rm('-fr', tmp);
 sh.mkdir(tmp);
-sh.cp('-rf', path.resolve(mupDir, 'tests/fixtures/*'), tmp);
-var containers = sh.exec('docker ps -a -q --filter=ancestor=mup-tests-server');
+sh.cp('-rf', path.resolve(orupDir, 'tests/fixtures/*'), tmp);
+var containers = sh.exec('docker ps -a -q --filter=ancestor=orup-tests-server');
 
 if (containers.output.length > 0) {
   console.log('server containers');
@@ -40,34 +40,34 @@ if (containers.output.length > 0) {
 }
 
 containers = sh.exec(
-  'docker ps -a -q --filter=ancestor=mup-tests-server-docker'
+  'docker ps -a -q --filter=ancestor=orup-tests-server-docker'
 );
 if (containers.output.length > 0) {
   console.log('docker containers');
   sh.exec(`docker rm -f ${containers.output.trim()}`);
 }
 
-sh.cd(path.resolve(mupDir, 'tests/fixtures'));
+sh.cd(path.resolve(orupDir, 'tests/fixtures'));
 
-var images = sh.exec('docker images -aq mup-tests-server');
+var images = sh.exec('docker images -aq orup-tests-server');
 if (images.output.length === 0) {
-  sh.exec('docker build -t mup-tests-server .');
+  sh.exec('docker build -t orup-tests-server .');
 }
 
-images = sh.exec('docker images -aq mup-tests-server-docker');
+images = sh.exec('docker images -aq orup-tests-server-docker');
 if (images.output.length === 0 && !argv.skipPull) {
   console.log('building image');
   var commands = [
-    'docker build -f ./Dockerfile_docker -t mup-tests-server-docker .',
-    'docker run -d --name mup-tests-server-docker-setup --privileged mup-tests-server-docker',
-    'docker exec mup-tests-server-docker-setup service docker start',
-    'docker exec -t mup-tests-server-docker-setup docker pull mongo:3.4.1',
-    'docker exec -t mup-tests-server-docker-setup docker pull kadirahq/meteord',
-    'docker exec -t mup-tests-server-docker-setup docker pull oreact/app:base',
-    'docker exec -t mup-tests-server-docker-setup docker pull jwilder/nginx-proxy',
-    'docker exec -t mup-tests-server-docker-setup docker pull jrcs/letsencrypt-nginx-proxy-companion:latest',
-    'docker commit mup-tests-server-docker-setup mup-tests-server-docker',
-    'docker rm -f mup-tests-server-docker-setup'
+    'docker build -f ./Dockerfile_docker -t orup-tests-server-docker .',
+    'docker run -d --name orup-tests-server-docker-setup --privileged orup-tests-server-docker',
+    'docker exec orup-tests-server-docker-setup service docker start',
+    'docker exec -t orup-tests-server-docker-setup docker pull mongo:3.4.1',
+    'docker exec -t orup-tests-server-docker-setup docker pull kadirahq/meteord',
+    'docker exec -t orup-tests-server-docker-setup docker pull oreact/app:base',
+    'docker exec -t orup-tests-server-docker-setup docker pull jwilder/nginx-proxy',
+    'docker exec -t orup-tests-server-docker-setup docker pull jrcs/letsencrypt-nginx-proxy-companion:latest',
+    'docker commit orup-tests-server-docker-setup orup-tests-server-docker',
+    'docker rm -f orup-tests-server-docker-setup'
   ];
   commands.forEach(command => {
     var code = sh.exec(command).code;
@@ -77,9 +77,9 @@ if (images.output.length === 0 && !argv.skipPull) {
   });
 }
 
-var location = path.resolve(mupDir, 'tests/fixtures/ssh/new');
+var location = path.resolve(orupDir, 'tests/fixtures/ssh/new');
 if (!fs.existsSync(location)) {
-  sh.cd(path.resolve(mupDir, 'tests/fixtures'));
+  sh.cd(path.resolve(orupDir, 'tests/fixtures'));
 
   sh.rm('-rf', 'ssh');
   sh.mkdir('ssh');
@@ -99,5 +99,5 @@ if (!fs.existsSync(location)) {
   }
 }
 
-sh.cd(mupDir);
+sh.cd(orupDir);
 sh.exec('npm link');

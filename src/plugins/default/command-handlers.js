@@ -3,22 +3,22 @@ import { Client } from 'ssh2';
 import debug from 'debug';
 import { map } from 'bluebird';
 
-const log = debug('mup:module:default');
+const log = debug('orup:module:default');
 
 export function deploy() {
-  log('exec => mup deploy');
+  log('exec => orup deploy');
 }
 
 export function logs() {
-  log('exec => mup logs');
+  log('exec => orup logs');
 }
 
 export function reconfig() {
-  log('exec => mup reconfig');
+  log('exec => orup reconfig');
 }
 
 export function restart() {
-  log('exec => mup restart');
+  log('exec => orup restart');
 }
 
 export function setup(api) {
@@ -29,20 +29,20 @@ export function setup(api) {
 
     console.log('');
     console.log('Next, you should run:');
-    console.log('    mup deploy');
+    console.log('    orup deploy');
   });
 
-  log('exec => mup setup');
+  log('exec => orup setup');
 
   return api.runCommand('docker.setup');
 }
 
 export function start() {
-  log('exec => mup start');
+  log('exec => orup start');
 }
 
 export function stop() {
-  log('exec => mup stop');
+  log('exec => orup stop');
 }
 
 export function ssh(api) {
@@ -53,7 +53,7 @@ export function ssh(api) {
     if (Object.keys(servers).length === 1) {
       serverOption = Object.keys(servers)[0];
     } else {
-      console.log('mup ssh <server>');
+      console.log('orup ssh <server>');
       console.log('Available servers are:\n', Object.keys(servers).join('\n '));
       process.exitCode = 1;
 

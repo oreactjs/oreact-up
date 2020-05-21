@@ -34,7 +34,7 @@ NGINX_CONFIG="client_max_body_size $CLIENT_UPLOAD_LIMIT;";
 NGINX_CONFIG_PATH="/opt/$APPNAME/config/nginx-default.conf"
 
 # Only add client_max_body_size if it doesn't already exist
-# The value should only change when `mup proxy reconfig-shared` is run
+# The value should only change when `orup proxy reconfig-shared` is run
 # That also resets the config, allowing this line to be added again with the new value
 # If the user's custom config already has this option, or a comment
 # containing this option, then the config will not be modified

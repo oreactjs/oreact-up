@@ -2,7 +2,7 @@
 
 APPNAME=<%= appName %>
 APP_PATH=/opt/$APPNAME
-IMAGE=mup-<%= appName.toLowerCase() %>
+IMAGE=orup-<%= appName.toLowerCase() %>
 START_SCRIPT=$APP_PATH/config/start.sh
 DEPLOY_CHECK_WAIT_TIME=<%= deployCheckWaitTime %>
 
@@ -36,7 +36,7 @@ revert_app () {
   fi
 
   echo
-  echo "To see more logs type 'mup logs --tail=200'"
+  echo "To see more logs type 'orup logs --tail=200'"
   echo ""
 }
 

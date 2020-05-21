@@ -1,12 +1,9 @@
-<!-- Love meteor-up? Please consider supporting our collective:
-👉  https://opencollective.com/meteor-up/donate -->
-
 <!-- You only need to answer the questions if this is a bug reports. -->
 
-Mup version (`mup --version`):
+Orup version (`orup --version`):
 
-Mup config
-<!-- Use `mup validate --show --scrub` to remove most of the sensitive information -->
+Orup config
+<!-- Use `orup validate --show --scrub` to remove most of the sensitive information -->
 ```js
 paste config here...
 ```

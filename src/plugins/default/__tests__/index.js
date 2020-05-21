@@ -20,9 +20,9 @@ describe('module - default', function() {
     it('should deploy oreact app on "oreact" vm', async () => {
       const serverInfo = servers.myoreact;
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
-      sh.exec('mup setup');
+      sh.exec('orup setup');
 
-      const out = sh.exec('mup deploy --cached-build');
+      const out = sh.exec('orup deploy --cached-build');
 
       expect(out.code).to.equal(0);
       expect(
@@ -67,12 +67,12 @@ describe('module - default', function() {
   });
 
   describe('init', () => {
-    it('should create "mup.js" and "setting.json" in /tmp/project-tmp', () => {
+    it('should create "orup.js" and "setting.json" in /tmp/project-tmp', () => {
       const dir = path.resolve(os.tmpdir(), 'project-tmp');
       sh.mkdir(dir);
       sh.cd(dir);
-      sh.exec('mup init');
-      expect(fs.existsSync(path.resolve(dir, 'mup.js'))).to.true;
+      sh.exec('orup init');
+      expect(fs.existsSync(path.resolve(dir, 'orup.js'))).to.true;
       expect(fs.existsSync(path.resolve(dir, 'settings.json'))).to.true;
       sh.rm('-rf', dir);
     });
@@ -81,7 +81,7 @@ describe('module - default', function() {
   describe('logs', () => {
     it('should pull the logs from oreact app', () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
-      const out = sh.exec('mup logs --tail 2');
+      const out = sh.exec('orup logs --tail 2');
       expect(out.code).to.be.equal(0);
     });
   });
@@ -90,9 +90,9 @@ describe('module - default', function() {
     it('should reconfig oreact app on "oreact" vm', async () => {
       const serverInfo = servers.myoreact;
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
-      sh.exec('mup setup  && mup deploy --cached-build');
+      sh.exec('orup setup  && orup deploy --cached-build');
 
-      const out = sh.exec('mup reconfig');
+      const out = sh.exec('orup reconfig');
 
       expect(out.code).to.be.equal(0);
       expect(
@@ -114,9 +114,9 @@ describe('module - default', function() {
     it('should restart oreact app on "oreact" vm', async () => {
       const serverInfo = servers.myoreact;
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
-      sh.exec('mup setup  && mup deploy --cached-build');
+      sh.exec('orup setup  && orup deploy --cached-build');
 
-      const out = sh.exec('mup restart');
+      const out = sh.exec('orup restart');
 
       expect(out.code).to.be.equal(0);
       expect(out.output).to.have.entriesCount('Stop oreact: SUCCESS', 1);
@@ -135,7 +135,7 @@ describe('module - default', function() {
       const serverInfo = servers.myoreact;
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
-      const out = sh.exec('mup setup');
+      const out = sh.exec('orup setup');
 
       expect(out.code).to.be.equal(0);
       expect(countOccurences('Setup Docker: SUCCESS', out.output)).to.be.equal(
@@ -157,9 +157,9 @@ describe('module - default', function() {
     it('should start oreact app on "oreact" vm', async () => {
       const serverInfo = servers.myoreact;
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
-      sh.exec('mup setup  && mup oreact push --cached-build && mup oreact envconfig');
+      sh.exec('orup setup  && orup oreact push --cached-build && orup oreact envconfig');
 
-      const out = sh.exec('mup start');
+      const out = sh.exec('orup start');
 
       expect(out.code).to.be.equal(0);
       expect(countOccurences('Start oreact: SUCCESS', out.output)).to.be.equal(
@@ -178,9 +178,9 @@ describe('module - default', function() {
     it('should stop oreact app on "oreact" vm', async () => {
       const serverInfo = servers.myoreact;
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
-      sh.exec('mup setup  && mup deploy --cached-build');
+      sh.exec('orup setup  && orup deploy --cached-build');
 
-      const out = sh.exec('mup stop');
+      const out = sh.exec('orup stop');
 
       expect(out.code).to.be.equal(0);
       expect(countOccurences('Stop oreact: SUCCESS', out.output)).to.be.equal(
@@ -198,7 +198,7 @@ describe('module - default', function() {
     it('should write oreact logs to syslog on "oreact" vm', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-2'));
 
-      sh.exec('mup setup && mup deploy --cached-build');
+      sh.exec('orup setup && orup deploy --cached-build');
       const out = await runSSHCommand(
         serverInfo,
         'sudo tail -n 100 /var/log/syslog'

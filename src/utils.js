@@ -7,7 +7,7 @@ import { promisify } from 'bluebird';
 import readline from 'readline';
 import stream from 'stream';
 
-const log = debug('mup:utils');
+const log = debug('orup:utils');
 
 export function addStdioHandlers(list) {
   list._taskQueue = list._taskQueue.map(task => {
