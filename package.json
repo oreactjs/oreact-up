@@ -11,7 +11,7 @@
   "author": "Kadira Inc.",
   "license": "MIT",
   "bin": {
-    "orup": "./index.js"
+    "orup": "index.js"
   },
   "scripts": {
     "prepublish": "npm run build -s",
@@ -22,13 +22,10 @@
     "test:module": "mocha --compilers js:babel-register --require babel-polyfill",
     "test:parallel": "bash ./tests/run-parallel.sh",
     "test:unit": "cross-env NODE_ENV=test nyc --all mocha --compilers js:babel-register --require babel-polyfill src/**/*.unit.js",
-    "lint": "npm run lint:code && npm run lint:defaultConfig && npm run lint:readme && npm run lint:css && npm run lint:docs-configs",
+    "lint": "npm run lint:code && npm run lint:defaultConfig && npm run lint:readme",
     "lint:defaultConfig": "eslint --ext=\".sample\" -c .eslintrc.yml --rule=\"comma-dangle: 0\" .",
     "lint:code": "eslint .",
     "lint:readme": "eslint --ext md .",
-    "lint:docs-configs": "node tests/validate-docs.js",
-    "lint:css": "cd docs && stylelint css/*.css",
-    "docs": "cd docs && bundle exec jekyll serve",
     "clean-shrinkwrap": "cd tests && node clean-shrinkwrap.js"
   },
   "devDependencies": {
@@ -94,5 +91,9 @@
       "src/plugins/**",
       "**/__tests__/**"
     ]
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
   }
 }
