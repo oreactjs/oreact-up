@@ -29,21 +29,20 @@ sudo docker run \
   --log-opt max-file=7 \
   mongo:$MONGO_VERSION mongod -f /mongodb.conf
 
+#echo "Creating replica set"
 
-echo "Creating replica set"
+#limit=20
+#elaspsed=0
 
-limit=20
-elaspsed=0
-
-while [[ true ]]; do
-  sleep 1
-  elaspsed=$((elaspsed+1))
-  sudo docker exec mongodb mongo --eval \
-    'rs.initiate({_id: "oreact", members: [{_id: 0, host: "127.0.0.1:27017"}]});' \
-    && exit 0
+#while [[ true ]]; do
+#  sleep 1
+#  elaspsed=$((elaspsed+1))
+#  sudo docker exec mongodb mongo --eval \
+#    'rs.initiate({_id: "oreact", members: [{_id: 0, host: "127.0.0.1:27017"}]});' \
+#    && exit 0
   
-  if [ "$elaspsed" "==" "$limit" ]; then
-    echo "Failed connecting to mongo to create replica set" 1>&2 
-    exit 1
-  fi
-done
+#  if [ "$elaspsed" "==" "$limit" ]; then
+#    echo "Failed connecting to mongo to create replica set" 1>&2
+#    exit 1
+#  fi
+#done

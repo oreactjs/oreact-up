@@ -28,7 +28,7 @@ export default function() {
       let showStable = true;
 
       const npmVersion = res.latest;
-      const nextVersion = res.next;
+      const nextVersion = res.next || res.latest;
 
       const local = pkg.version.split('.').slice(0, 3)
         .map(n => Number(n.split('-')[0]));

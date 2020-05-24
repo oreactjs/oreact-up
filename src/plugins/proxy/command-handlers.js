@@ -5,7 +5,7 @@ import fs from 'fs';
 import nodemiral from 'nodemiral';
 
 const log = debug('orup:module:proxy');
-const PROXY_CONTAINER_NAME = 'orup-nginx-proxy';
+const PROXY_CONTAINER_NAME = 'mup-nginx-proxy';
 
 export function logs(api) {
   log('exec => orup proxy logs');
