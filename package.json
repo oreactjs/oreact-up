@@ -6,8 +6,10 @@
   "keywords": [
     "oreact",
     "oreact-up",
-    "deploy"
+    "deploy",
+    "orup"
   ],
+  "homepage": "https://oreactjs.com/docs/orup/getting-started",
   "author": "Kadira Inc.",
   "license": "MIT",
   "bin": {

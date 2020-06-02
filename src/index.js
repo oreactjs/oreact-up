@@ -105,7 +105,7 @@ let program = yargs
   .strict(true)
   .alias('help', 'h')
   .epilogue(
-    'For more information, read the docs at http://meteor-up.com/docs.html'
+    'For more information, read the docs at https://oreactjs.com/docs/orup/getting-started'
   )
   .help('help');
 

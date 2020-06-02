@@ -86,7 +86,7 @@ export default class PluginAPI {
       console.log(
         'Read the docs and view example configs at'
       );
-      console.log('    http://meteor-up.com/docs');
+      console.log('    https://oreactjs.com/docs/orup/getting-started');
       console.log('');
     }
 
