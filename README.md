@@ -44,6 +44,10 @@ npm install -g orup
 
 ### Learn more about Oreact UP on [Getting Started ➞](https://oreactjs.com/docs/orup/getting-started)
 
+## Inspiration
+* [zodern/meteor-up](https://github.com/zodern/meteor-up)
+
+
 ## License
 
 This project is licensed under the terms of the
