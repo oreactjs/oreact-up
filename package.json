@@ -7,10 +7,11 @@
     "oreact",
     "oreact-up",
     "deploy",
-    "orup"
+    "orup",
+    "cli"
   ],
   "homepage": "https://oreactjs.com/docs/orup/getting-started",
-  "author": "Kadira Inc.",
+  "author": "Vinay Kevadiya <vinaykevadiaa@gmail.com>",
   "license": "MIT",
   "bin": {
     "orup": "index.js"

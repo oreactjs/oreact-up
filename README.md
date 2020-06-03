@@ -2,7 +2,7 @@
 
 #### Production Quality Oreact Deployments
 
-Oreact Up is a command line tool that allows you to deploy any [Oreact](http://oreactjs.com) app to your own server.
+Oreact Up is a command line tool that allows you to deploy any [OreactJS](https://oreactjs.com) app to your own server.
 
 You can install and use Oreact Up on Linux, Mac and Windows. It can deploy to servers running Ubuntu 14 or newer.
 
@@ -33,7 +33,18 @@ This version of Oreact Up is powered by [Docker](http://www.docker.com/), making
 Oreact Up requires Node v4 or newer. It runs on Windows, Mac, and Windows.
 
 ```bash
+yarn global add orup
+```
+With npm, try:
+```bash
 npm install -g orup
 ```
 
 `orup` should be installed on the computer you are deploying from.
+
+### Learn more about Oreact UP on [Getting Started ➞](https://oreactjs.com/docs/orup/getting-started)
+
+## License
+
+This project is licensed under the terms of the
+[MIT license](/LICENSE).
