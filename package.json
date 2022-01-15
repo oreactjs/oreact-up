@@ -78,7 +78,7 @@
     "parse-json": "^4.0.0",
     "random-seed": "0.3.0",
     "resolve-from": "^4.0.0",
-    "shelljs": "0.5.3",
+    "shelljs": "0.8.5",
     "silent-npm-registry-client": "^3.0.1",
     "ssh2": "0.4.x",
     "tar": "^4.4.4",
